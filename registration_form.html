@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Registration Form</title>
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> </style>
+        
+  </head>
+
+  <body>
+
+    <div class="container">
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+              <form action="submit.php" method="post">
+      
+                <h1>Registeration Form</h1>
+                
+                <fieldset>
+                  
+                <div class="well">
+                    <div class="row form-group">
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                       
+	                        <label for="first_name">First Name:</label>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                        <input type="text" name="first_name" class="form-control" placeholder="Frist Name">
+	              
+	                    </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">                      
+                            <label for="middle_mail">Middle Name:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="text" name="middle_name" class="form-control" placeholder="Middle Name">
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">                         
+                           <label for="last_name">Last Name:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="text" name="last_name" class="form-control" placeholder="Last Name">                
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                           <label>Prefix:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="prefix" id="prefix_1" value="option1" checked>Mr
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="prefix" id="prefix_2" value="option2">Ms
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="prefix" id="prefix_3" value="option3">Mrs
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">                         
+                           <label>Gender</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="gender" id="gender_1" value="option1" checked>Male
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="gender" id="gender_2" value="option2">Female
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="gender" id="gender_3" value="option3">Transgender
+                            </label>
+                          </div>                    
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">                         
+                           <label for="dob">DOB:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="date" class="form-control" name="dob" id="dob" >                
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">                         
+                           <label for="marital">Marital Status</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <select name="marital" id="marital" class="form-control">
+                           <option value="">Select</option>
+                           <option value="single">Single</option>
+                           <option value="married">Married</option>
+                           <option value="divorced">Divorced</option>
+                           <option value="widow">Widow</option>
+                           <option value="widower">Widower</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">                         
+                           <label>Employent</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="employement" id="employement_status_1" value="option3" checked>Employed
+                            </label>
+                          </div><div class="radio">
+                            <label>
+                              <input type="radio" name="employement" id="employement_status_2" value="option3">Unemployed
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                       
+	                        <label for="Employer">Employer</label>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                        <input type="text" name="employer" class="form-control" placeholder="Organization">
+	              
+	                    </div>
+                    </div>
+
+                    <legend>Residence Address :-</legend>
+
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                          <label for="Street">Street:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="text" name="street" class="form-control" placeholder="Street">
+                
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                          <label for="City">City:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="text" name="city" class="form-control" placeholder="City">
+                
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                          <label for="state">State:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <select name="state" id="state" class="form-control">
+                             <option value="">Select State</option>
+                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                             <option value="Andhra Pradesh">Andhra Pradesh</option>
+                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                             <option value="Assam">Assam</option>
+                             <option value="Bihar">Bihar</option>
+                             <option value="Chandigarh">Chandigarh</option>
+                             <option value="Chhattisgarh">Chhattisgarh</option>
+                             <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                             <option value="Daman and Diu">Daman and Diu</option>
+                             <option value="Delhi">Delhi</option>
+                             <option value="Goa">Goa</option>
+                             <option value="Gujarat">Gujarat</option>
+                             <option value="Haryana">Haryana</option>
+                             <option value="Himachal Pradesh">Himachal Pradesh</option>
+                             <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                             <option value="Jharkhand">Jharkhand</option>                         
+                             <option value="Karnataka">Karnataka</option>
+                             <option value="Kerala">Kerala</option>
+                             <option value="Lakshadweep">Lakshadweep</option>
+                             <option value="Madhya Pradesh">Madhya Pradesh</option>
+                             <option value="Maharashtra">Maharashtra</option>
+                             <option value="Manipur">Manipur</option>
+                             <option value="Meghalaya">Meghalaya</option>
+                             <option value="Mizoram">Mizoram</option>
+                             <option value="Nagaland">Nagaland</option>
+                             <option value="Orissa">Orissa</option>
+                             <option value="Pondicherry">Pondicherry</option>
+                             <option value="Punjab">Punjab</option>
+                             <option value="Rajasthan">Rajasthan</option>
+                             <option value="Sikkim">Sikkim</option>
+                             <option value="Tamil Nadu">Tamil Nadu</option>
+                             <option value="Tripura">Tripura</option>
+                             <option value="Uttaranchal">Uttaranchal</option>
+                             <option value="Uttar Pradesh">Uttar Pradesh</option>
+                             <option value="West Bengal">West Bengal</option>
+                          </select>                
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                          <label for="Zip">Zip:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="text" name="zip" class="form-control" placeholder="Zip code">
+                
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                          <label for="Phone">Phone:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="text" name="phone" class="form-control" placeholder="Phone no.">
+                
+                      </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                          <label for="Fax">Fax:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <input type="text" name="fax" class="form-control" placeholder="Fax no.">
+                
+                      </div>
+                    </div> 
+                    <legend>Office Address :-</legend>
+
+                    <div class="row form-group">
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                       
+	                        <label for="Street">Street:</label>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                        <input type="text" name="street" class="form-control" placeholder="Street">
+	              
+	                    </div>
+                    </div>
+                    <div class="row form-group">
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                       
+	                        <label for="City">City:</label>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                        <input type="text" name="city" class="form-control" placeholder="City">
+	              
+	                    </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                          <label for="state">State:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <select name="state" id="state" class="form-control">
+                             <option value="">Select State</option>
+                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                             <option value="Andhra Pradesh">Andhra Pradesh</option>
+                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                             <option value="Assam">Assam</option>
+                             <option value="Bihar">Bihar</option>
+                             <option value="Chandigarh">Chandigarh</option>
+                             <option value="Chhattisgarh">Chhattisgarh</option>
+                             <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                             <option value="Daman and Diu">Daman and Diu</option>
+                             <option value="Delhi">Delhi</option>
+                             <option value="Goa">Goa</option>
+                             <option value="Gujarat">Gujarat</option>
+                             <option value="Haryana">Haryana</option>
+                             <option value="Himachal Pradesh">Himachal Pradesh</option>
+                             <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                             <option value="Jharkhand">Jharkhand</option>                         
+                             <option value="Karnataka">Karnataka</option>
+                             <option value="Kerala">Kerala</option>
+                             <option value="Lakshadweep">Lakshadweep</option>
+                             <option value="Madhya Pradesh">Madhya Pradesh</option>
+                             <option value="Maharashtra">Maharashtra</option>
+                             <option value="Manipur">Manipur</option>
+                             <option value="Meghalaya">Meghalaya</option>
+                             <option value="Mizoram">Mizoram</option>
+                             <option value="Nagaland">Nagaland</option>
+                             <option value="Orissa">Orissa</option>
+                             <option value="Pondicherry">Pondicherry</option>
+                             <option value="Punjab">Punjab</option>
+                             <option value="Rajasthan">Rajasthan</option>
+                             <option value="Sikkim">Sikkim</option>
+                             <option value="Tamil Nadu">Tamil Nadu</option>
+                             <option value="Tripura">Tripura</option>
+                             <option value="Uttaranchal">Uttaranchal</option>
+                             <option value="Uttar Pradesh">Uttar Pradesh</option>
+                             <option value="West Bengal">West Bengal</option>
+                          </select>                
+                      </div>
+                    </div>
+                    <div class="row form-group">
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                       
+	                        <label for="Zip">Zip:</label>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                        <input type="text" name="zip" class="form-control" placeholder="Zip code">
+	              
+	                    </div>
+                    </div>
+                    <div class="row form-group">
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                       
+	                        <label for="Phone">Phone:</label>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                        <input type="text" name="phone" class="form-control" placeholder="Phone no.">
+	              
+	                    </div>
+                    </div>
+                    <div class="row form-group">
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                       
+	                        <label for="Fax">Fax:</label>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+	                        <input type="text" name="fax" class="form-control" placeholder="Fax no.">
+	              
+	                    </div>
+                    </div>
+                    <legend></legend>
+
+                    <div class="row">
+                    	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">	                       
+	                        <label for="Photo">Photo :</label>
+	                        <input type="file" name="pic" accept="image/*">
+	                    </div> 
+	                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 	                    	
+	                    </div>                  	
+                    </div>              
+					         <br>
+                    <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         
+                           <label for="Notes">Extra Notes:</label>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <textarea class="form-control" name="Extra_notes" rows="10" placeholder="Notes :-"></textarea>
+                      </div>
+	                </div>
+                  <br>
+
+	                <div class="row form-group">
+                          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                             
+                               <label>Preferred communication medium:</label>
+                          </div>
+                          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox">Mail
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox">Message
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox">Phone call
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox">Any
+                                    </label>
+                                </div>                         
+                          </div>
+                    </div>               
+                  
+                </div>                 
+                
+                </fieldset>
+                <div class="row form-group">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                          <button class="btn btn-danger" style="float:left" type="reset" onclick="alert('All the data will be deleted')" value="reset">Reset</button>
+                         
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                         <button class="btn btn-primary" style="float:right" type="submit" onclick="alert('Ready to Submit data ?')" value="submit">Submit</button>
+                      </div>
+                </div>
+                
+                <br>
+                <br>
+              </form>
+          </div>
+        </div>
+    </div> 
+    <br> 
+    
+	</body>
+</html>
