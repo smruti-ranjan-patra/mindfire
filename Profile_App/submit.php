@@ -14,7 +14,7 @@
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
           	<div class="well">
                     <div class="row form-group">
-	                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+	                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
 	                    	<?php
 
 	                    	echo "<h3><u>General Details :-</u></h3><br>";
@@ -31,7 +31,7 @@
 	                    	?>
 	                    </div>
 
-	                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+	                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
 	                    	<?php
 
 	                    	echo "<h3><u>Residence Address  :-</u></h3><br>";
@@ -45,7 +45,7 @@
 	                    	?>
 	                    </div>
 
-	                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+	                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
 	                    	<?php
 
 	                    	echo "<h3><u>Office Address :-</u></h3><br>";
