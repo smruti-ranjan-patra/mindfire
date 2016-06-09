@@ -66,17 +66,17 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="prefix" id="prefix_1" value="option1" checked>Mr
+                              <input type="radio" name="prefix" id="prefix_1" value="Mr" checked>Mr
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="prefix" id="prefix_2" value="option2">Ms
+                              <input type="radio" name="prefix" id="prefix_2" value="Ms">Ms
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="prefix" id="prefix_3" value="option3">Mrs
+                              <input type="radio" name="prefix" id="prefix_3" value="Mrs">Mrs
                             </label>
                           </div>
                       </div>
@@ -91,17 +91,17 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="gender" id="gender_1" value="option1" checked>Male
+                              <input type="radio" name="gender" id="gender_1" value="Male" checked>Male
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="gender" id="gender_2" value="option2">Female
+                              <input type="radio" name="gender" id="gender_2" value="Female">Female
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="gender" id="gender_3" value="option3">Others
+                              <input type="radio" name="gender" id="gender_3" value="Others">Others
                             </label>
                           </div>                    
                       </div>
@@ -127,11 +127,11 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                         <div class="radio-inline">
                             <label>
-                              <input type="radio" name="marital" id="marital_status_1" value="option1" checked>Single
+                              <input type="radio" name="marital" id="marital_status_1" value="Single" checked>Single
                             </label>
                           </div><div class="radio-inline">
                             <label>
-                              <input type="radio" name="marital" id="marital_status_2" value="option2">Married
+                              <input type="radio" name="marital" id="marital_status_2" value="Married">Married
                             </label>
                           </div>
                       </div>
@@ -146,11 +146,11 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="employement" id="employement_status_1" value="option3" checked>Employed
+                              <input type="radio" name="employment" id="employment_status_1" value="Employed" checked>Employed
                             </label>
                           </div><div class="radio-inline">
                             <label>
-                              <input type="radio" name="employement" id="employement_status_2" value="option3">Unemployed
+                              <input type="radio" name="employment" id="employment_status_2" value="Unemployed">Unemployed
                             </label>
                           </div>
                       </div>
@@ -420,19 +420,19 @@
                           <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_mail">
+                                    <input type="checkbox" id="comm_mail" name="comm[]" value="Mail">
                                     <label for="comm_mail">Mail</label>
                                 </div>
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_message">
+                                    <input type="checkbox" id="comm_message" name="comm[]" value="Message">
                                     <label for="comm_message">Message</label>
                                 </div>
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_phone">
+                                    <input type="checkbox" id="comm_phone" name="comm[]" value="Phone">
                                     <label for="comm_phone">Phone Call</label>
                                 </div>
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_any">
+                                    <input type="checkbox" id="comm_any" name="comm[]" value="Any">
                                     <label for="comm_any">Any</label>
                                 </div>                         
                           </div>
@@ -443,8 +443,8 @@
                 <!-- Buttons -->
 
                 <div class="row form-group text-center">
-                    <button class="btn btn-primary"  type="submit" onclick="alert('Ready to Submit data ?')" value="submit">Submit</button>
-          					<button class="btn btn-danger" type="reset" onclick="alert('All the data will be deleted')" value="reset">Reset</button>
+                    <button class="btn btn-primary"  type="submit" onclick="return confirm('Ready to Submit data ?')" value="submit">Submit</button>
+          			<button class="btn btn-danger" type="reset" onclick="return confirm('All the data will be deleted')" value="reset">Reset</button>
                 </div>                
               </form>
           </div>
