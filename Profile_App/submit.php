@@ -63,24 +63,28 @@
 
 		} 
 		else {
-			echo 'Not inserting'; exit;
+			echo 'Not inserting'; 
+			exit;
 		}
+		
 
 
-		$q_fetch = "SELECT CONCAT(emp.first_name,'',emp.middle_name,'',emp.last_name) AS name, emp.prefix, 
-			   emp.gender, emp.dob, emp.marital_status, emp.employment, 
-			   emp.employer, emp.comm_id, group_concat(addr.address_type), group_concat(addr.street), group_concat(addr.city),
-			   group_concat(addr.state), group_concat(addr.zip), group_concat(addr.phone), group_concat(addr.fax)  
-		    FROM employee AS emp
-		    INNER JOIN address AS addr
-		    ON emp.id = addr.emp_id
-		    group by emp.id
-		    order by emp.id";
+
+		$q_fetch = "SELECT emp.id as id, CONCAT(emp.first_name,' ', emp.middle_name,' ', emp.last_name) AS name,  
+					emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, 
+					emp.employment AS employment, emp.employer AS employer, emp.comm_id AS comm_id, res.street AS r_street, 
+					res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, res.fax AS r_fax, 
+					off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip AS o_zip, off.phone AS o_phone, 
+					off.fax AS o_fax 
+					from employee AS emp 
+					inner join address AS res on (emp.id = res.emp_id and res.address_type = 'residence')
+					inner join address AS off on (emp.id = off.emp_id and off.address_type = 'office')";
 
 		$result_3 = mysqli_query($conn, $q_fetch);
 
 		$rnum = mysqli_num_rows($result_3);
 		?>
+		
 		<div class="table-responsive">
 		<table class="table">
 			<thead>
@@ -102,12 +106,13 @@
 
 
 				while ($row = mysqli_fetch_array($result_3, MYSQLI_ASSOC)){
-					echo '<pre>'; print_r($row);
+					//echo '<pre>'; print_r($row);
 					//echo '<br>';
 					echo "<tr>";
+					$
 					foreach ($row as $key => $value) {
 						//print_r($value);
-						
+
 						echo "<td>".$key."==".$value."</>";
 
 						//echo $key . '----' . $value;
