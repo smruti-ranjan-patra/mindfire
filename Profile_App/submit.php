@@ -7,9 +7,9 @@
 <body>
 	<?php
 
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		ini_set('display_startup_errors', 1);
+		error_reporting(E_ALL);
 
 		$host = 'localhost';
 		$userName = 'root';
@@ -21,76 +21,370 @@
 		{
 			die ('Failed to connect to MySQL :' . mysqli_connect_error());
 		}
-		
-		$f_name = isset($_POST['first_name']) ? $_POST['first_name'] : '';
-		$m_name = isset($_POST['middle_name']) ? $_POST['middle_name'] : '';
-		$l_name = isset($_POST['last_name']) ? $_POST['last_name'] : '';
-		$prefix = isset($_POST['prefix']) ? $_POST['prefix'] : '';
-		$gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-		$dob = isset($_POST['dob']) ? $_POST['dob'] : '';
-		$marital = isset($_POST['marital']) ? $_POST['marital'] : '';
-		$employment = isset($_POST['employment']) ? $_POST['employment'] : '';
-		$employer = isset($_POST['employer']) ? $_POST['employer'] : '';
-		$r_street = isset($_POST['r_street']) ? $_POST['r_street'] : '';
-		$r_city = isset($_POST['r_city'])? $_POST['r_city'] : '';
-		$r_state = isset($_POST['r_state']) ? $_POST['r_state'] : '';
-		$r_zip = isset($_POST['r_zip'])?$_POST['r_zip'] : '';
-		$r_phone = isset($_POST['r_phone']) ? $_POST['r_phone'] : '';
-		$r_fax = isset($_POST['r_fax']) ? $_POST['r_fax'] : '';
-		$o_street = isset($_POST['o_street']) ? $_POST['o_street'] : '';
-		$o_city = isset($_POST['o_city']) ? $_POST['o_city'] : '';
-		$o_state = isset($_POST['o_state']) ? $_POST['o_state'] : '';
-		$o_zip = isset($_POST['o_zip']) ? $_POST['o_zip'] : '';
-		$o_phone = isset($_POST['o_phone']) ? $_POST['o_phone'] : '';
-		$o_fax = isset($_POST['o_fax']) ? $_POST['o_fax'] : '';
-		$pic = isset($_POST['pic']) ? $_POST['pic'] : '';
-		$notes = isset($_POST['notes']) ? $_POST['notes'] : '';
-		$comm = (isset($_POST['comm']) && !empty($_POST['comm'])) ? implode(', ', $_POST['comm']) : '';
 
-		$q_employee = "INSERT INTO employee(first_name, middle_name, last_name, prefix, gender, dob, marital_status, employment, employer, photo, extra_note, comm_id) VALUES ('$f_name', '$m_name', '$l_name', '$prefix', '$gender', '$dob', '$marital', '$employment', '$employer', '$pic', '$notes', '$comm')";
+		if(isset($_POST['submit']))
+		{
+			$count = 0;
 
-		$result_1 = mysqli_query($conn, $q_employee);
+			// Validating first name
 
-		if (TRUE === $result_1) {
+			if(isset($_POST['first_name']) && !empty($_POST['first_name']))
+			{
+				$f_name = formatted($_POST['first_name']);
+			}
+			else
+			{
+				echo 'Please give a valid First Name';
+				echo "<br>";
+				$count++;
+			}
 
-			$employee_id = mysqli_insert_id($conn);
+			// Validating middle name
 
-			$q_address = "INSERT INTO `address`(`emp_id`, `address_type`, `street`, `city`, `state`, `zip`, `phone`, `fax`) VALUES 
-				($employee_id,'residence','$r_street','$r_city','$r_state','$r_zip','$r_phone','$r_fax'), 
-				($employee_id,'office','$o_street','$o_city','$o_state','$o_zip','$o_phone','$o_fax')";
+			if(isset($_POST['middle_name']) && !empty($_POST['middle_name']))
+			{
+				$m_name = formatted($_POST['middle_name']);
+			}
+			else
+			{
+				echo 'Please give a valid Middle Name';
+				echo "<br>";
+				$count++;
+			}
 
-			$result_2 = mysqli_query($conn, $q_address);
+			// Validating last name
 
-		} 
-		else {
-			echo 'Not inserting'; 
+			if(isset($_POST['last_name']) && !empty($_POST['last_name']))
+			{
+				$l_name = formatted($_POST['last_name']);
+			}
+			else
+			{
+				echo 'Please give a valid Last Name';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating prefix
+
+			if(isset($_POST['prefix']))
+			{
+				$prefix = $_POST['prefix'];
+			}
+			else
+			{
+				$count++;
+			}
+			// Validating gender
+
+			if(isset($_POST['gender']))
+			{
+				$gender = $_POST['gender'];
+			}
+			else
+			{
+				$count++;
+			}
+
+			// Validating date of birth
+
+			if(isset($_POST['dob']))
+			{
+				$dob = $_POST['dob'];
+			}
+			else
+			{
+				$count++;
+			}
+
+			// Validating marital status
+
+			if(isset($_POST['marital']))
+			{
+				$marital = $_POST['marital'];
+			}
+			else
+			{
+				$count++;
+			}
+
+			// Validating employment status
+
+			if(isset($_POST['employment']))
+			{
+				$employment = $_POST['employment'];
+			}
+			else
+			{
+				$count++;
+			}
+
+			// Validating employer
+
+			if(isset($_POST['employer']) && !empty($_POST['employer']))
+			{
+				$employer = formatted($_POST['employer']);
+			}
+			else
+			{
+				echo 'Please give a valid Employer Name';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating residence street
+
+			if(isset($_POST['r_street']) && !empty($_POST['r_street']))
+			{
+				$r_street = formatted($_POST['r_street']);
+			}
+			else
+			{
+				echo 'Please give a valid residence Street';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating residence city
+
+			if(isset($_POST['r_city']) && !empty($_POST['r_city']))
+			{
+				$r_city = formatted($_POST['r_city']);
+			}
+			else
+			{
+				echo 'Please give a valid residence City';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating residence state
+
+			if(isset($_POST['r_state']) && !empty($_POST['r_state']))
+			{
+				$r_state = formatted($_POST['r_state']);
+			}
+			else
+			{
+				echo 'Please give a valid residence State';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating residence zip
+
+			if(isset($_POST['r_zip']) && !empty($_POST['r_zip']))
+			{
+				$r_zip = formatted($_POST['r_zip']);
+				if(!ctype_digit($r_zip))
+				{
+					echo 'Please give a valid residence Zip';
+					echo "<br>";
+					$count++;
+				}
+			}
+
+			// Validating residence phone
+
+			if(isset($_POST['r_phone']) && !empty($_POST['r_phone']))
+			{
+				$r_phone = formatted($_POST['r_phone']);
+				if(!ctype_digit($r_phone))
+				{
+					echo 'Please give a valid residence Phone';
+					echo "<br>";
+					$count++;
+				}
+			}
+
+			// Validating residence fax
+
+			if(isset($_POST['r_fax']) && !empty($_POST['r_fax']))
+			{
+				$r_fax = formatted($_POST['r_fax']);
+				if(!ctype_digit($r_fax))
+				{
+					echo 'Please give a valid residence Fax';
+					echo "<br>";
+					$count++;
+				}
+			}
+
+			// Validating office street
+
+			if(isset($_POST['o_street']) && !empty($_POST['o_street']))
+			{
+				$o_street = formatted($_POST['o_street']);
+			}
+			else
+			{
+				echo 'Please give a valid office Street';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating office city
+
+			if(isset($_POST['o_city']) && !empty($_POST['o_city']))
+			{
+				$o_city = formatted($_POST['o_city']);
+			}
+			else
+			{
+				echo 'Please give a valid office City';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating office state
+
+			if(isset($_POST['o_state']) && !empty($_POST['o_state']))
+			{
+				$o_state = formatted($_POST['o_state']);
+			}
+			else
+			{
+				echo 'Please give a valid office State';
+				echo "<br>";
+				$count++;
+			}
+
+			// Validating office zip
+
+			if(isset($_POST['o_zip']) && !empty($_POST['o_zip']))
+			{
+				$o_zip = formatted($_POST['o_zip']);
+				if(!ctype_digit($o_zip))
+				{
+					echo 'Please give a valid office Zip';
+					echo "<br>";
+					$count++;
+				}
+			}
+
+			// Validating office phone
+
+			if(isset($_POST['o_phone']) && !empty($_POST['o_phone']))
+			{
+				$o_phone = formatted($_POST['o_phone']);
+				if(!ctype_digit($o_phone))
+				{
+					echo 'Please give a valid office Phone';
+					echo "<br>";
+					$count++;
+				}
+			}
+
+			// Validating office fax
+
+			if(isset($_POST['o_fax']) && !empty($_POST['o_fax']))
+			{
+				$o_fax = formatted($_POST['o_fax']);
+				if(!ctype_digit($o_fax))
+				{
+					echo 'Please give a valid office Fax';
+					echo "<br>";
+					$count++;
+				}
+			}
+
+			// Validating Picture
+
+			if(isset($_POST['pic']) && !empty($_POST['pic']))
+			{
+				$pic = formatted($_POST['pic']);
+
+			}
+			else
+			{
+				echo 'Please give a valid Photo';
+				echo "<br>";
+				$count++;
+			}
+			
+			// Validating Notes
+
+			if(isset($_POST['notes']))
+			{
+				$notes = formatted($_POST['notes']);
+			}
+			else
+			{
+				$notes = ' ';
+			}
+
+			// Validating Communication Medium
+
+			if(isset($_POST['comm']) && !empty($_POST['comm']))
+			{
+				$comm = implode(', ', $_POST['comm']);
+			}
+			else
+			{
+				echo 'Please give at least one Communication Medium';
+				echo "<br>";
+				$count++;
+			}
+
+			if($count > 0)
+			{
+				exit;
+			}
+
+			$q_employee = "INSERT INTO employee(first_name, middle_name, last_name, prefix, gender, dob, marital_status, employment, employer, photo, extra_note, comm_id) VALUES ('$f_name', '$m_name', '$l_name', '$prefix', '$gender', '$dob', '$marital', '$employment', '$employer', '$pic', '$notes', '$comm')";
+
+			$result_1 = mysqli_query($conn, $q_employee);
+
+			if (TRUE === $result_1) {
+
+				$employee_id = mysqli_insert_id($conn);
+
+				$q_address = "INSERT INTO `address`(`emp_id`, `address_type`, `street`, `city`, `state`, `zip`, `phone`, `fax`) VALUES 
+					($employee_id,'residence','$r_street','$r_city','$r_state','$r_zip','$r_phone','$r_fax'), 
+					($employee_id,'office','$o_street','$o_city','$o_state','$o_zip','$o_phone','$o_fax')";
+
+				$result_2 = mysqli_query($conn, $q_address);
+			} 
+			else
+			{
+				echo 'Not inserting'; 
+				exit;
+			}
+
+			$q_fetch = "SELECT emp.prefix AS prefix, CONCAT(emp.first_name,' ', emp.middle_name,' ', emp.last_name) AS name, 
+			emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, emp.employment AS employment, 
+			emp.employer AS employer,  
+			CONCAT(res.street, ', ', res.city, ', ', res.state, ', ', res.zip, ', ', res.phone, ', ', res.fax) AS res_add, 
+			CONCAT(off.street, ', ', off.city, ', ', off.state, ', ', off.zip, ', ', off.phone, ', ', off.fax) AS off_add, 
+			emp.comm_id AS comm_id, emp.id
+			from employee AS emp 
+			inner join address AS res on (emp.id = res.emp_id and res.address_type = 'residence')
+			inner join address AS off on (emp.id = off.emp_id and off.address_type = 'office')";
+
+			$result_3 = mysqli_query($conn, $q_fetch);
+
+			$rnum = mysqli_num_rows($result_3);
+		}
+		else
+		{
 			exit;
 		}
-		
-
-
-
-		$q_fetch = "SELECT emp.id as id, CONCAT(emp.first_name,' ', emp.middle_name,' ', emp.last_name) AS name,  
-					emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, 
-					emp.employment AS employment, emp.employer AS employer, emp.comm_id AS comm_id, res.street AS r_street, 
-					res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, res.fax AS r_fax, 
-					off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip AS o_zip, off.phone AS o_phone, 
-					off.fax AS o_fax 
-					from employee AS emp 
-					inner join address AS res on (emp.id = res.emp_id and res.address_type = 'residence')
-					inner join address AS off on (emp.id = off.emp_id and off.address_type = 'office')";
-
-		$result_3 = mysqli_query($conn, $q_fetch);
-
-		$rnum = mysqli_num_rows($result_3);
+		function formatted($data)
+			{
+				$data = trim($data);
+				$data = stripslashes($data);
+				$data = htmlspecialchars($data);
+				return $data;
+			}
 		?>
-		
+		<h1><u>Employee Details :-</u></h1>
 		<div class="table-responsive">
-		<table class="table">
+		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th>Name</th>
+					<th>Sl</th>
 					<th>Prefix</th>
+					<th>Name</th>
 					<th>Gender</th>
 					<th>DOB</th>
 					<th>Marital</th>
@@ -103,139 +397,42 @@
 			</thead>
 			<tbody>
 			<?php
-
-
-				while ($row = mysqli_fetch_array($result_3, MYSQLI_ASSOC)){
-					//echo '<pre>'; print_r($row);
-					//echo '<br>';
+				$i = 1;
+				while ($row = mysqli_fetch_array($result_3, MYSQLI_ASSOC))
+				{					
 					echo "<tr>";
-					$
-					foreach ($row as $key => $value) {
-						//print_r($value);
-
-						echo "<td>".$key."==".$value."</>";
-
-						//echo $key . '----' . $value;
+					echo "<td>".$i++."</td>";					
+					foreach ($row as $key => $value) 
+					{
+						if('comm_id' == $key)
+						{
+							$q_comm = "SELECT GROUP_CONCAT(type SEPARATOR ', ') FROM `communication_medium` WHERE id IN ($value)";
+							$result_4 = mysqli_query($conn, $q_comm);
+							while ($row1 = mysqli_fetch_array($result_4, MYSQLI_ASSOC))
+							{
+								foreach ($row1 as $key => $value) 
+								{
+									echo "<td>".$value."</td>";
+								}
+							}
+						}
+						elseif('dob' == $key)
+						{
+							echo "<td>".date("d/m/Y", strtotime($value))."</td>";
+						}
+						elseif('id' != $key)
+						{
+							echo "<td>".$value."</td>";
+						}
 					}
 					echo "</tr>";
 				}
-
-			?>
-
-
-				
+			?>				
 			</tbody>
 		</table>
 	</div>
-
-
-
-
-
-
-<form action = "registration_form.html" method = "post">
-<button class="btn btn-primary"  type="submit" value="submit">Go to form</button>
-</form>
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<!-- <div class="container">
-		<h1><u>Details  :-</u></h1>
-
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-          	<div class="well">
-                    <div class="row form-group">
-	                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
-	                    	<?php
-
-	                    	echo "<h3><u>General Details :-</u></h3><br>";
-							echo 'First Name : ' . $_POST['first_name']."<br>";
-							echo 'Middle Name : ' . $_POST['middle_name']."<br>";
-							echo 'Last Name : ' . $_POST['last_name']."<br>";
-							echo 'prefix : ' . $_POST['prefix']."<br>";
-							echo 'Gender : ' . $_POST['gender']."<br>";
-							echo 'Date of Birth : ' . $_POST['dob']."<br>";
-							echo 'Marital Status : ' . $_POST['marital']."<br>";
-							echo 'Employment Status: ' . $_POST['employment']."<br>";
-							echo 'Employer : ' . $_POST['employer']."<br>";
-
-	                    	?>
-	                    </div>
-
-	                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
-	                    	<?php
-
-	                    	echo "<h3><u>Residence Address  :-</u></h3><br>";
-							echo 'Street : ' . $_POST['r_street']."<br>";
-							echo 'City : ' . $_POST['r_city']."<br>";
-							echo 'State : ' . $_POST['r_state']."<br>";
-							echo 'Zip : ' . $_POST['r_zip']."<br>";
-							echo 'Phone : ' . $_POST['r_phone']."<br>";
-							echo 'Fax : ' . $_POST['r_fax']."<br>";
-
-	                    	?>
-	                    </div>
-
-	                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
-	                    	<?php
-
-	                    	echo "<h3><u>Office Address :-</u></h3><br>";
-							echo 'Street : ' . $_POST['o_street']."<br>";
-							echo 'City : ' . $_POST['o_city']."<br>";
-							echo 'State : ' . $_POST['o_state']."<br>";
-							echo 'Zip : ' . $_POST['o_zip']."<br>";
-							echo 'Phone : ' . $_POST['o_phone']."<br>";
-							echo 'Fax : ' . $_POST['o_fax']."<br>";
-
-	                    	?>
-	                    </div>
-	                </div>
-
-	                <div class="row form-group">
-	                    <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 col-md-offset-1 col-lg-offset-1">
-
-	                    	<?php
-
-	                    		echo "<h3><u>Personal Info  :-</u></h3><br>";
-								echo 'Picture : ' . $_POST['pic']."<br>";
-								echo 'Notes : ' . $_POST['notes']."<br>";
-
-								 if (isset($_POST['comm']))
-								 {
-								 	echo 'Communication : ' . implode(', ', $_POST['comm'])."<br>";
-								 }
-								 else
-								 	echo 'Please provide communication medium';
-
-	                    	?>
-
-	                    </div>
-                    </div>
-            </div>        	
-          </div>
-        </div>
-    </div> -->
-
-
+	<form action = "registration_form.html" method = "post">
+	<button class="btn btn-primary"  type="submit" value="submit">Go to form</button>
+	</form>
 </body>
 </html>

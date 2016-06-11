@@ -443,8 +443,9 @@
                 <!-- Buttons -->
 
                 <div class="row form-group text-center">
-                    <button class="btn btn-primary"  type="submit" onclick="return confirm('Ready to Submit data ?')" value="submit">Submit</button>
-          			<button class="btn btn-danger" type="reset" onclick="return confirm('All the data will be deleted')" value="reset">Reset</button>
+                    <button class="btn btn-primary"  type="submit" name="submit" value="submit">Submit</button>
+          			<button class="btn btn-danger" type="reset" name="reset" value="reset">Reset</button>
+          			<button class="btn btn-info" type="submit" formaction="display.php" name="display" value="display">Display details</button>
                 </div>                
               </form>
           </div>
