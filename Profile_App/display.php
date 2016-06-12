@@ -32,66 +32,77 @@
 		inner join address AS res on (emp.id = res.emp_id and res.address_type = 'residence')
 		inner join address AS off on (emp.id = off.emp_id and off.address_type = 'office')";
 
+		$rnum = 0;
+
 		$result_3 = mysqli_query($conn, $q_fetch);
 
 		$rnum = mysqli_num_rows($result_3);
-		?>
-		<h1><u>Employee Details :-</u></h1>
-		<div class="table-responsive">
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>Sl</th>
-					<th>Prefix</th>
-					<th>Name</th>
-					<th>Gender</th>
-					<th>DOB</th>
-					<th>Marital</th>
-					<th>Employment</th>
-					<th>Employer</th>
-					<th>Residence</th>
-					<th>Office</th>
-					<th>Communication</th>
-				</tr>
-			</thead>
-			<tbody>
-			<?php
-				$i = 1;
-				while ($row = mysqli_fetch_array($result_3, MYSQLI_ASSOC))
-				{					
-					echo "<tr>";
-					echo "<td>".$i++."</td>";					
-					foreach ($row as $key => $value) 
-					{
-						if('comm_id' == $key)
+
+		if($rnum > 0)
+		{?>
+			<h1><u>Employee Details :-</u></h1>
+			<div class="table-responsive">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Sl</th>
+						<th>Prefix</th>
+						<th>Name</th>
+						<th>Gender</th>
+						<th>DOB</th>
+						<th>Marital</th>
+						<th>Employment</th>
+						<th>Employer</th>
+						<th>Residence</th>
+						<th>Office</th>
+						<th>Communication</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+					$sl = 1;
+					while ($row = mysqli_fetch_array($result_3, MYSQLI_ASSOC))
+					{					
+						echo "<tr>";
+						echo "<td>".$sl++."</td>";					
+						foreach ($row as $key => $value) 
 						{
-							$q_comm = "SELECT GROUP_CONCAT(type SEPARATOR ', ') FROM `communication_medium` WHERE id IN ($value)";
-							$result_4 = mysqli_query($conn, $q_comm);
-							while ($row1 = mysqli_fetch_array($result_4, MYSQLI_ASSOC))
+							if('comm_id' == $key)
 							{
-								foreach ($row1 as $key => $value) 
+								$q_comm = "SELECT GROUP_CONCAT(type SEPARATOR ', ') FROM `communication_medium` WHERE id IN ($value)";
+								$result_4 = mysqli_query($conn, $q_comm);
+								while ($row1 = mysqli_fetch_array($result_4, MYSQLI_ASSOC))
 								{
-									echo "<td>".$value."</td>";
+									foreach ($row1 as $key => $value) 
+									{
+										echo "<td>".$value."</td>";
+									}
 								}
 							}
-						}
-						elseif('dob' == $key)
-						{
-							echo "<td>".date("d/m/Y", strtotime($value))."</td>";
-						}
-						elseif('id' != $key)
-						{
-							echo "<td>".$value."</td>";
-						}
+							elseif('dob' == $key)
+							{
+								echo "<td>".date("d/m/Y", strtotime($value))."</td>";
+							}
+							elseif('id' != $key)
+							{
+								echo "<td>".$value."</td>";
+							}
+						}?>
+						<td><a href="registration_form.php?id=<?php echo $row['id'] ?>">Edit</a></td>
+						?>
+						<td><a href="delete.php?id=<?php echo $row['id']?>">Delete</a></td>
+						<?php
+						echo "</tr>";
 					}
-					echo "</tr>";
-				}
-			?>				
-			</tbody>
-		</table>
-	</div>
-	<form action = "registration_form.html" method = "post">
-	<button class="btn btn-primary"  type="submit" value="submit">Go to form</button>
-	</form>
+				?>				
+				</tbody>
+			</table>
+			</div>
+		<?php
+		}
+		?>		
+	<a href="registration_form.php">Register</a>
 </body>
 </html>	

@@ -1,3 +1,63 @@
+<?php
+$check = 0;
+if (isset($_GET['id']))
+{
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+
+  $host = 'localhost';
+  $userName = 'root';
+  $password = 'mindfire';
+  $dbName = 'registration';
+  $conn = mysqli_connect($host,$userName,$password,$dbName);
+
+  if (mysqli_connect_errno($conn))
+  {
+    die ('Failed to connect to MySQL :' . mysqli_connect_error());
+  }
+
+  $q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, emp.last_name AS l_name, emp.prefix AS prefix,  
+  emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, emp.employment AS employment, 
+  emp.employer AS employer, res.street AS r_street, res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, 
+  res.fax AS r_fax, off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip AS o_zip, off.phone AS o_phone, 
+  off.fax AS o_fax, emp.photo AS photo, emp.extra_note AS notes, emp.comm_id AS comm_id 
+  from employee AS emp 
+  inner join address AS res on (emp.id = res.emp_id and res.address_type = 'residence')
+  inner join address AS off on (emp.id = off.emp_id and off.address_type = 'office')
+  where emp.id = ".$_GET['id'];
+
+  $result = mysqli_query($conn, $q_fetch);
+
+  $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+  $com = explode(", ",$row['comm_id']);
+  $length = count($com);
+  $c1 = $c2 = $c3 = $c4 = 0;
+  for($i = 0; $i < $length; $i++)
+  {
+    if(1 == $com[$i])
+      $c1 = 1;
+    if(2 == $com[$i])
+      $c2 = 1;
+    if(3 == $com[$i])
+      $c3 = 1;
+    if(4 == $com[$i])
+      $c4 = 1;
+  }
+}
+
+else
+{
+  $row['prefix'] = 'Mr';
+  $row['gender'] = 'Male';
+  $row['marital_status'] = 'Single';
+  $row['employment'] = 'Employed';
+
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -22,6 +82,9 @@
               <form action="submit.php" method="post">
       
                 <h1>Registration Form</h1>
+
+
+                <input type="text" name="edit_id" hidden value="<?php echo $_GET['id'] ?>">
                 
                 <fieldset>
 
@@ -34,7 +97,8 @@
 	                        <label for="first_name">First Name:</label>
 	                    </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-	                        <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name">
+	                        <input type="text" name="first_name" id="first_name" class="form-control" required placeholder="First Name" value="<?php
+                          echo $row['f_name'] ?>">
 	              
 	                    </div>
                     </div>
@@ -44,7 +108,8 @@
                             <label for="middle_mail">Middle Name:</label>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                          <input type="text" name="middle_name" id="middle_name" class="form-control" placeholder="Middle Name">
+                          <input type="text" name="middle_name" id="middle_name" class="form-control" placeholder="Middle Name" value="<?php
+                          echo $row['m_name'] ?>">
                       </div>
                     </div>
 
@@ -53,7 +118,8 @@
                            <label for="last_name">Last Name:</label>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                          <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">                
+                          <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name" value="<?php
+                          echo $row['l_name'] ?>">                
                       </div>
                     </div>
 
@@ -66,17 +132,17 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="prefix" id="prefix_1" value="Mr" checked>Mr
+                              <input type="radio" name="prefix" id="prefix_1" value="Mr" <?php  if( 'Mr' == $row['prefix']) echo "checked"  ?> >Mr
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="prefix" id="prefix_2" value="Ms">Ms
+                              <input type="radio" name="prefix" id="prefix_2" value="Ms" <?php  if( 'Ms' == $row['prefix']) echo "checked"  ?> >Ms
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="prefix" id="prefix_3" value="Mrs">Mrs
+                              <input type="radio" name="prefix" id="prefix_3" value="Mrs" <?php  if( 'Mrs' == $row['prefix']) echo "checked"  ?>> Mrs
                             </label>
                           </div>
                       </div>
@@ -91,17 +157,17 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="gender" id="gender_1" value="Male" checked>Male
+                              <input type="radio" name="gender" id="gender_1" value="Male" <?php  if( 'Male' == $row['gender']) echo "checked" ?>>Male
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="gender" id="gender_2" value="Female">Female
+                              <input type="radio" name="gender" id="gender_2" value="Female" <?php  if( 'Female' == $row['gender']) echo "checked" ?>>Female
                             </label>
                           </div>
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="gender" id="gender_3" value="Others">Others
+                              <input type="radio" name="gender" id="gender_3" value="Others" <?php  if( 'Others' == $row['gender']) echo "checked" ?>>Others
                             </label>
                           </div>                    
                       </div>
@@ -114,7 +180,8 @@
                            <label for="dob">DOB:</label>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                          <input type="date" class="form-control" name="dob" id="dob">                
+                          <input type="date" class="form-control" name="dob" id="dob" value="<?php
+                          echo $row['dob'] ?>">                
                       </div>
                     </div>
 
@@ -127,11 +194,11 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                         <div class="radio-inline">
                             <label>
-                              <input type="radio" name="marital" id="marital_status_1" value="Single" checked>Single
+                              <input type="radio" name="marital" id="marital_status_1" value="Single" <?php  if( 'Single' == $row['marital_status']) echo "checked"  ?>>Single
                             </label>
                           </div><div class="radio-inline">
                             <label>
-                              <input type="radio" name="marital" id="marital_status_2" value="Married">Married
+                              <input type="radio" name="marital" id="marital_status_2" value="Married" <?php  if( 'Married' == $row['marital_status']) echo "checked"  ?>>Married
                             </label>
                           </div>
                       </div>
@@ -146,11 +213,11 @@
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                           <div class="radio-inline">
                             <label>
-                              <input type="radio" name="employment" id="employment_status_1" value="Employed" checked>Employed
+                              <input type="radio" name="employment" id="employment_status_1" value="Employed" <?php  if( 'Employed' == $row['employment']) echo "checked"  ?>>Employed
                             </label>
                           </div><div class="radio-inline">
                             <label>
-                              <input type="radio" name="employment" id="employment_status_2" value="Unemployed">Unemployed
+                              <input type="radio" name="employment" id="employment_status_2" value="Unemployed" <?php  if( 'Unemployed' == $row['employment']) echo "checked"  ?>>Unemployed
                             </label>
                           </div>
                       </div>
@@ -164,7 +231,8 @@
 	                        <label for="employer">Employer:</label>
 	                    </div>
 	                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-	                        <input type="text" id="employer" name="employer" class="form-control" placeholder="Organization">
+	                        <input type="text" id="employer" name="employer" class="form-control" value="<?php
+                          echo $row['employer'] ?>" placeholder="Organization">
 	              
 	                    </div>
                     </div>
@@ -184,7 +252,8 @@
                                 <label for="r_street">Street:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="r_street" name="r_street" class="form-control" placeholder="Street">
+                                <input type="text" id="r_street" name="r_street" class="form-control" value="<?php
+                          echo $row['r_street'] ?>" placeholder="Street">
                       
                             </div>
                           </div>
@@ -194,7 +263,8 @@
                                 <label for="r_city">City:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="r_city" name="r_city" class="form-control" placeholder="City">
+                                <input type="text" id="r_city" name="r_city" class="form-control" value="<?php
+                          echo $row['r_city'] ?>" placeholder="City">
                       
                             </div>
                           </div>
@@ -250,7 +320,8 @@
                                 <label for="r_zip">Zip:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="r_zip" name="r_zip" class="form-control" placeholder="Zip code">
+                                <input type="text" id="r_zip" name="r_zip" class="form-control" value="<?php
+                          echo $row['r_zip'] ?>" placeholder="Zip code">
                       
                             </div>
                           </div>
@@ -260,7 +331,8 @@
                                 <label for="r_phone">Phone:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="r_phone" name="r_phone" class="form-control" placeholder="09123456789">
+                                <input type="text" id="r_phone" name="r_phone" class="form-control" value="<?php
+                          echo $row['r_phone'] ?>" placeholder="09123456789">
                       
                             </div>
                           </div>
@@ -270,7 +342,8 @@
                                 <label for="r_fax">Fax:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="r_fax" name="r_fax" class="form-control" placeholder="04442544302">
+                                <input type="text" id="r_fax" name="r_fax" class="form-control" value="<?php
+                          echo $row['r_fax'] ?>" placeholder="04442544302">
                       
                             </div>
                           </div>
@@ -290,7 +363,8 @@
                                 <label for="o_street">Street:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="o_street" name="o_street" class="form-control" placeholder="Street">
+                                <input type="text" id="o_street" name="o_street" class="form-control" value="<?php
+                          echo $row['o_street'] ?>" placeholder="Street">
                       
                             </div>
                           </div>
@@ -300,7 +374,8 @@
                                 <label for="o_city">City:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="o_city" name="o_city" class="form-control" placeholder="City">
+                                <input type="text" id="o_city" name="o_city" class="form-control" value="<?php
+                          echo $row['o_city'] ?>" placeholder="City">
                       
                             </div>
                           </div>
@@ -356,7 +431,8 @@
                                 <label for="o_zip">Zip:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="o_zip" name="o_zip" class="form-control" placeholder="Zip code">
+                                <input type="text" id="o_zip" name="o_zip" class="form-control" value="<?php
+                          echo $row['o_zip'] ?>" placeholder="Zip code">
                       
                             </div>
                           </div>
@@ -366,7 +442,8 @@
                                 <label for="o_phone">Phone:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="o_phone" name="o_phone" class="form-control" placeholder="09123456789">
+                                <input type="text" id="o_phone" name="o_phone" class="form-control" value="<?php
+                          echo $row['o_phone'] ?>" placeholder="09123456789">
                       
                             </div>
                           </div>
@@ -376,7 +453,8 @@
                                 <label for="o_fax">Fax:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <input type="text" id="o_fax" name="o_fax" class="form-control" placeholder="04442544302">
+                                <input type="text" id="o_fax" name="o_fax" class="form-control" value="<?php
+                          echo $row['o_fax'] ?>" placeholder="04442544302">
                       
                             </div>
                           </div>                        
@@ -394,7 +472,8 @@
 	                        <label for="pic">Photo:</label>
 	                    </div> 
 	                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> 	
-	                        <input type="file" id="pic" name="pic" accept="image/*">
+	                        <input type="file" id="pic" name="pic" value=<?php
+                          echo $row['photo'] ?> accept="image/*">
 	                    </div>                  	
                     </div>              
 					         <br>
@@ -404,7 +483,8 @@
                            <label for="notes">Extra Notes:</label>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                          <textarea class="form-control" id="notes" name="notes" rows="10" placeholder="Notes"></textarea>
+                          <textarea class="form-control" id="notes" name="notes" rows="10" value=<?php
+                          echo $row['notes'] ?> placeholder="Notes"></textarea>
                       </div>
 	                </div>
                   <br>
@@ -420,19 +500,19 @@
                           <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_mail" name="comm[]" value="1">
+                                    <input type="checkbox" id="comm_mail" name="comm[]" value="1" <?php if($c1) echo "checked" ?>>
                                     <label for="comm_mail">Mail</label>
                                 </div>
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_message" name="comm[]" value="2">
+                                    <input type="checkbox" id="comm_message" name="comm[]" value="2" <?php if($c2) echo "checked" ?>>
                                     <label for="comm_message">Message</label>
                                 </div>
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_phone" name="comm[]" value="3">
+                                    <input type="checkbox" id="comm_phone" name="comm[]" value="3" <?php if($c3) echo "checked" ?>>
                                     <label for="comm_phone">Phone Call</label>
                                 </div>
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" id="comm_any" name="comm[]" value="4">
+                                    <input type="checkbox" id="comm_any" name="comm[]" value="4" <?php if($c4) echo "checked" ?>>
                                     <label for="comm_any">Any</label>
                                 </div>                         
                           </div>
@@ -445,7 +525,8 @@
                 <div class="row form-group text-center">
                     <button class="btn btn-primary"  type="submit" name="submit" value="submit">Submit</button>
           			<button class="btn btn-danger" type="reset" name="reset" value="reset">Reset</button>
-          			<button class="btn btn-info" type="submit" formaction="display.php" name="display" value="display">Display details</button>
+          			<!-- <button class="btn btn-info" type="submit" formaction="display.php" name="display" value="display">Display details</button> -->
+                <a href="display.php"><input type="button" class="btn btn-info" value="Display"></a>
                 </div>                
               </form>
           </div>
