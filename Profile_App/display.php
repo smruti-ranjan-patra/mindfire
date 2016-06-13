@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Display Page</title>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
 	<?php
@@ -71,7 +71,8 @@
 						{
 							if('comm_id' == $key)
 							{
-								$q_comm = "SELECT GROUP_CONCAT(type SEPARATOR ', ') FROM `communication_medium` WHERE id IN ($value)";
+								$q_comm = "SELECT GROUP_CONCAT(type SEPARATOR ', ') FROM 
+								`communication_medium` WHERE id IN ($value)";
 								$result_4 = mysqli_query($conn, $q_comm);
 								while ($row1 = mysqli_fetch_array($result_4, MYSQLI_ASSOC))
 								{
@@ -90,9 +91,10 @@
 								echo "<td>".$value."</td>";
 							}
 						}?>
-						<td><a href="registration_form.php?id=<?php echo $row['id'] ?>">Edit</a></td>
-						?>
-						<td><a href="delete.php?id=<?php echo $row['id']?>">Delete</a></td>
+						<td><a href="registration_form.php?id=<?php echo $row['id'] ?>">
+						<span class="glyphicon glyphicon-pencil" ></span></a></td>
+						<td><a href="delete.php?id=<?php echo $row['id']?>">
+						<span class="glyphicon glyphicon-remove" ></span></a></td>
 						<?php
 						echo "</tr>";
 					}
