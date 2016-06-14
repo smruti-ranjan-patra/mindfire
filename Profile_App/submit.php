@@ -5,6 +5,7 @@
 	error_reporting(E_ALL);
 
 	include('db_connection.php');
+	include('photo_path.php');
 
 	$pic_update = 0;
 	
@@ -281,7 +282,7 @@
 			    }		      
 			    if(empty($errors)==true)
 			    {
-			       move_uploaded_file($file_tmp,"images/".$file_name);
+			       move_uploaded_file($file_tmp, PIC_PATH.$file_name);
 			    }else
 			    {
 			       print_r($errors);
@@ -335,7 +336,7 @@
 
 				$result_pic = mysqli_query($conn, $q_pic);
 				$row_pic = mysqli_fetch_array($result_pic, MYSQLI_ASSOC);
-				$pic_name = "images/".$row_pic['photo'];
+				$pic_name = PIC_PATH.$row_pic['photo'];
 	    		unlink($pic_name);
 			}
 

@@ -1,6 +1,7 @@
 <?php
 $check_pic = 0;
 include('states.php');
+include('photo_path.php');
 function check_states($st_list, $data)
 {
     foreach($st_list as $value)
@@ -287,8 +288,7 @@ else
                             </div>
                           </div>
                           <div class="row form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                               
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
                                 <label for="r_zip">Zip:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -298,8 +298,7 @@ else
                             </div>
                           </div>
                           <div class="row form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                               
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
                                 <label for="r_phone">Phone:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -309,8 +308,7 @@ else
                             </div>
                           </div>
                           <div class="row form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                               
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
                                 <label for="r_fax">Fax:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -320,10 +318,7 @@ else
                           </div>
                       </div>
 
-
                       <!-- Office Address :- -->
-
-
                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
                         <h4><u>Office Address :-</u></h4>
@@ -403,11 +398,12 @@ else
 	                        <label for="pic">Photo:</label>
 	                    </div>
 	                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> 
-	                        <input type="file" id="pic" name="pic" value="<?php echo $row['photo'] ?>">
+	                        <input type="file" id="pic" name="pic" value="<?php echo $row['photo']?>
+	                        ">
                             <span><?php
                             if(1 == $check_pic)
                             {
-                              echo "<img src=images/".$row['photo']." width=200 height=200>";
+                              echo "<img src=".PIC_PATH.$row['photo']." width=200 height=200>";
                             }
                             ?></span>
 	                    </div>
@@ -420,8 +416,8 @@ else
                            <label for="notes">Extra Notes:</label>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                          <textarea class="form-control" id="notes" name="notes" rows="10" placeholder="Notes"><?php
-                          echo $row['notes'] ?></textarea>
+                          <textarea class="form-control" id="notes" name="notes" rows="10" 
+                          placeholder="Notes"><?php echo $row['notes'] ?></textarea>
                       </div>
 	                </div>
                   <br>
