@@ -11,16 +11,7 @@
 		ini_set('display_startup_errors', 1);
 		error_reporting(E_ALL);
 
-		$host = 'localhost';
-		$userName = 'root';
-		$password = 'mindfire';
-		$dbName = 'registration';
-		$conn = mysqli_connect($host,$userName,$password,$dbName);
-
-		if (mysqli_connect_errno($conn))
-		{
-			die ('Failed to connect to MySQL :' . mysqli_connect_error());
-		}
+		include('db_connection.php');
 		
 		$q_fetch = "SELECT emp.prefix AS prefix, CONCAT(emp.first_name,' ', emp.middle_name,' ', emp.last_name) AS name, 
 		emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, emp.employment AS employment, 
@@ -84,7 +75,7 @@
 							}
 							elseif('dob' == $key)
 							{
-								echo "<td>".date("d/m/Y", strtotime($value))."</td>";
+								echo "<td>".date("d-M-Y", strtotime($value))."</td>";
 							}
 							elseif('id' != $key)
 							{

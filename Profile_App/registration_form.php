@@ -1,23 +1,27 @@
 <?php
-$check = 0;
+$check_pic = 0;
+include('states.php');
+function check_states($st_list, $data)
+{
+    foreach($st_list as $value)
+    {
+      ?>
+        <option <?php if ($value == $data): ?>selected<?php endif ?> value =<?php echo $value ?> >
+        <?php echo $value ?>
+        </option>
+        <?php
+    }
+}
+
 if (isset($_GET['id']))
 {
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
   error_reporting(E_ALL);
 
-  $temp = 0;
+  $check_pic = 1;
 
-  $host = 'localhost';
-  $userName = 'root';
-  $password = 'mindfire';
-  $dbName = 'registration';
-  $conn = mysqli_connect($host,$userName,$password,$dbName);
-
-  if (mysqli_connect_errno($conn))
-  {
-    die ('Failed to connect to MySQL :' . mysqli_connect_error());
-  }
+  include('db_connection.php');
 
   $q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, emp.last_name AS l_name, 
   emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, 
@@ -37,17 +41,17 @@ if (isset($_GET['id']))
 
   $com = explode(", ",$row['comm_id']);
   $length = count($com);
-  $c1 = $c2 = $c3 = $c4 = 0;
+  $comm1 = $comm2 = $comm3 = $comm4 = 0;
   for($i = 0; $i < $length; $i++)
   {
     if(1 == $com[$i])
-      $c1 = 1;
+      $comm1 = 1;
     if(2 == $com[$i])
-      $c2 = 1;
+      $comm2 = 1;
     if(3 == $com[$i])
-      $c3 = 1;
+      $comm3 = 1;
     if(4 == $com[$i])
-      $c4 = 1;
+      $comm4 = 1;
   }
 }
 else
@@ -57,6 +61,7 @@ else
   $row['gender'] = 'Male';
   $row['marital_status'] = 'Single';
   $row['employment'] = 'Employed';
+  $row['photo'] = '';
 }
 ?>
 
@@ -73,7 +78,7 @@ else
     <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-              <form action="submit.php" method="post">      
+              <form action="submit.php" method="post" enctype=multipart/form-data>      
                 <h1>Registration Form</h1>
 
                 <!-- Hidden Form to get the ID -->
@@ -81,7 +86,7 @@ else
                 if(isset($_GET['id']))
                     echo $_GET['id'];
                 else
-                    echo $temp;
+                    echo 0;
                 ?>">
                 
                 <fieldset>
@@ -277,114 +282,7 @@ else
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                 <select name="r_state" id="r_state" class="form-control">
                                    <option value="">Select State</option>
-                                   <option value="Andaman and Nicobar Islands" 
-                                   <?php  if( 'Andaman and Nicobar Islands' == $row['r_state']) 
-                                   echo "selected" ?>>Andaman and Nicobar Islands</option>
-                                   <option value="Andhra Pradesh" 
-                                   <?php  if( 'Andhra Pradesh' == $row['r_state']) 
-                                   echo "selected" ?>>Andhra Pradesh</option>
-                                   <option value="Arunachal Pradesh" 
-                                   <?php  if( 'Arunachal Pradesh' == $row['r_state']) 
-                                   echo "selected" ?>>Arunachal Pradesh</option>
-                                   <option value="Assam" 
-                                   <?php  if( 'Assam' == $row['r_state']) 
-                                   echo "selected" ?>>Assam</option>
-                                   <option value="Bihar" 
-                                   <?php  if( 'Bihar' == $row['r_state']) 
-                                   echo "selected" ?>>Bihar</option>
-                                   <option value="Chandigarh" 
-                                   <?php  if( 'Chandigarh' == $row['r_state']) 
-                                   echo "selected" ?>>Chandigarh</option>
-                                   <option value="Chhattisgarh" 
-                                   <?php  if( 'Chhattisgarh' == $row['r_state']) 
-                                   echo "selected" ?>>Chhattisgarh</option>
-                                   <option value="Dadra and Nagar Haveli" 
-                                   <?php  if( 'Dadra and Nagar Haveli' == $row['r_state']) 
-                                   echo "selected" ?>>Dadra and Nagar Haveli</option>
-                                   <option value="Daman and Diu" 
-                                   <?php  if( 'Daman and Diu' == $row['r_state']) 
-                                   echo "selected" ?>>Daman and Diu</option>
-                                   <option value="Delhi" 
-                                   <?php  if( 'Delhi' == $row['r_state']) 
-                                   echo "selected" ?>>Delhi</option>
-                                   <option value="Goa" 
-                                   <?php  if( 'Goa' == $row['r_state']) 
-                                   echo "selected" ?>>Goa</option>
-                                   <option value="Gujarat" 
-                                   <?php  if( 'Gujarat' == $row['r_state']) 
-                                   echo "selected" ?>>Gujarat</option>
-                                   <option value="Haryana" 
-                                   <?php  if( 'Haryana' == $row['r_state']) 
-                                   echo "selected" ?>>Haryana</option>
-                                   <option value="Himachal Pradesh" 
-                                   <?php  if( 'Himachal Pradesh' == $row['r_state']) 
-                                   echo "selected" ?>>Himachal Pradesh</option>
-                                   <option value="Jammu and Kashmir" 
-                                   <?php  if( 'Jammu and Kashmir' == $row['r_state']) 
-                                   echo "selected" ?>>Jammu and Kashmir</option>
-                                   <option value="Jharkhand" 
-                                   <?php  if( 'Jharkhand' == $row['r_state']) 
-                                   echo "selected" ?>>Jharkhand</option>
-                                   <option value="Karnataka" 
-                                   <?php  if( 'Karnataka' == $row['r_state']) 
-                                   echo "selected" ?>>Karnataka</option>
-                                   <option value="Kerala" 
-                                   <?php  if( 'Kerala' == $row['r_state']) 
-                                   echo "selected" ?>>Kerala</option>
-                                   <option value="Lakshadweep" 
-                                   <?php  if( 'Lakshadweep' == $row['r_state']) 
-                                   echo "selected" ?>>Lakshadweep</option>
-                                   <option value="Madhya Pradesh" 
-                                   <?php  if( 'Madhya Pradesh' == $row['r_state']) 
-                                   echo "selected" ?>>Madhya Pradesh</option>
-                                   <option value="Maharashtra" 
-                                   <?php  if( 'Maharashtra' == $row['r_state']) 
-                                   echo "selected" ?>>Maharashtra</option>
-                                   <option value="Manipur" 
-                                   <?php  if( 'Manipur' == $row['r_state']) 
-                                   echo "selected" ?>>Manipur</option>
-                                   <option value="Meghalaya" 
-                                   <?php  if( 'Meghalaya' == $row['r_state']) 
-                                   echo "selected" ?>>Meghalaya</option>
-                                   <option value="Mizoram" 
-                                   <?php  if( 'Mizoram' == $row['r_state']) 
-                                   echo "selected" ?>>Mizoram</option>
-                                   <option value="Nagaland" 
-                                   <?php  if( 'Nagaland' == $row['r_state']) 
-                                   echo "selected" ?>>Nagaland</option>
-                                   <option value="Odisha" 
-                                   <?php  if( 'Odisha' == $row['r_state']) 
-                                   echo "selected" ?>>Odisha</option>
-                                   <option value="Pondicherry" 
-                                   <?php  if( 'Pondicherry' == $row['r_state']) 
-                                   echo "selected" ?>>Pondicherry</option>
-                                   <option value="Punjab" 
-                                   <?php  if( 'Punjab' == $row['r_state']) 
-                                   echo "selected" ?>>Punjab</option>
-                                   <option value="Rajasthan" 
-                                   <?php  if( 'Rajasthan' == $row['r_state']) 
-                                   echo "selected" ?>>Rajasthan</option>
-                                   <option value="Sikkim" 
-                                   <?php  if( 'Sikkim' == $row['r_state']) 
-                                   echo "selected" ?>>Sikkim</option>
-                                   <option value="Tamil Nadu" 
-                                   <?php  if( 'Tamil Nadu' == $row['r_state']) 
-                                   echo "selected" ?>>Tamil Nadu</option>
-                                   <option value="Telangana" 
-                                   <?php  if( 'Telangana' == $row['r_state']) 
-                                   echo "selected" ?>>Telangana</option>
-                                   <option value="Tripura" 
-                                   <?php  if( 'Tripura' == $row['r_state']) 
-                                   echo "selected" ?>>Tripura</option>
-                                   <option value="Uttaranchal" 
-                                   <?php  if( 'Uttaranchal' == $row['r_state']) 
-                                   echo "selected" ?>>Uttaranchal</option>
-                                   <option value="Uttar Pradesh" 
-                                   <?php  if( 'Uttar Pradesh' == $row['r_state']) 
-                                   echo "selected" ?>>Uttar Pradesh</option>
-                                   <option value="West Bengal" 
-                                   <?php  if( 'West Bengal' == $row['r_state']) 
-                                   echo "selected" ?>>West Bengal</option>
+                                   <?php check_states($state_list, $row['r_state']) ?>
                                 </select>                
                             </div>
                           </div>
@@ -458,117 +356,9 @@ else
                                 <label for="o_state">State:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                <select name="o_state" id="o_state" class="form-control">
+                                <select name="o_state" id="r_state" class="form-control">
                                    <option value="">Select State</option>
-                                   <option value="Andaman and Nicobar Islands" 
-                                   <?php  if( 'Andaman and Nicobar Islands' == $row['o_state']) 
-                                   echo "selected" ?>>Andaman and Nicobar Islands</option>
-                                   <option value="Andhra Pradesh" 
-                                   <?php  if( 'Andhra Pradesh' == $row['o_state']) 
-                                   echo "selected" ?>>Andhra Pradesh</option>
-                                   <option value="Arunachal Pradesh" 
-                                   <?php  if( 'Arunachal Pradesh' == $row['o_state']) 
-                                   echo "selected" ?>>Arunachal Pradesh</option>
-                                   <option value="Assam" 
-                                   <?php  if( 'Assam' == $row['o_state']) 
-                                   echo "selected" ?>>Assam</option>
-                                   <option value="Bihar" 
-                                   <?php  if( 'Bihar' == $row['o_state']) 
-                                   echo "selected" ?>>Bihar</option>
-                                   <option value="Chandigarh" 
-                                   <?php  if( 'Chandigarh' == $row['o_state']) 
-                                   echo "selected" ?>>Chandigarh</option>
-                                   <option value="Chhattisgarh" 
-                                   <?php  if( 'Chhattisgarh' == $row['o_state']) 
-                                   echo "selected" ?>>Chhattisgarh</option>
-                                   <option value="Dadra and Nagar Haveli" 
-                                   <?php  if( 'Dadra and Nagar Haveli' == $row['o_state']) 
-                                   echo "selected" ?>>Dadra and Nagar Haveli</option>
-                                   <option value="Daman and Diu" 
-                                   <?php  if( 'Daman and Diu' == $row['o_state']) 
-                                   echo "selected" ?>>Daman and Diu</option>
-                                   <option value="Delhi" 
-                                   <?php  if( 'Delhi' == $row['o_state']) 
-                                   echo "selected" ?>>Delhi</option>
-                                   <option value="Goa" 
-                                   <?php  if( 'Goa' == $row['o_state']) 
-                                   echo "selected" ?>>Goa</option>
-                                   <option value="Gujarat" 
-                                   <?php  if( 'Gujarat' == $row['o_state']) 
-                                   echo "selected" ?>>Gujarat</option>
-                                   <option value="Haryana" 
-                                   <?php  if( 'Haryana' == $row['o_state']) 
-                                   echo "selected" ?>>Haryana</option>
-                                   <option value="Himachal Pradesh" 
-                                   <?php  if( 'Himachal Pradesh' == $row['o_state']) 
-                                   echo "selected" ?>>Himachal Pradesh</option>
-                                   <option value="Jammu and Kashmir" 
-                                   <?php  if( 'Jammu and Kashmir' == $row['o_state']) 
-                                   echo "selected" ?>>Jammu and Kashmir</option>
-                                   <option value="Jharkhand" 
-                                   <?php  if( 'Jharkhand' == $row['o_state']) 
-                                   echo "selected" ?>>Jharkhand</option>
-                                   <option value="Karnataka" 
-                                   <?php  if( 'Karnataka' == $row['o_state']) 
-                                   echo "selected" ?>>Karnataka</option>
-                                   <option value="Kerala" 
-                                   <?php  if( 'Kerala' == $row['o_state']) 
-                                   echo "selected" ?>>Kerala</option>
-                                   <option value="Lakshadweep" 
-                                   <?php  if( 'Lakshadweep' == $row['o_state']) 
-                                   echo "selected" ?>>Lakshadweep</option>
-                                   <option value="Madhya Pradesh" 
-                                   <?php  if( 'Madhya Pradesh' == $row['o_state']) 
-                                   echo "selected" ?>>Madhya Pradesh</option>
-                                   <option value="Maharashtra" 
-                                   <?php  if( 'Maharashtra' == $row['o_state']) 
-                                   echo "selected" ?>>Maharashtra</option>
-                                   <option value="Manipur" 
-                                   <?php  if( 'Manipur' == $row['o_state']) 
-                                   echo "selected" ?>>Manipur</option>
-                                   <option value="Meghalaya" 
-                                   <?php  if( 'Meghalaya' == $row['o_state']) 
-                                   echo "selected" ?>>Meghalaya</option>
-                                   <option value="Mizoram" 
-                                   <?php  if( 'Mizoram' == $row['o_state']) 
-                                   echo "selected" ?>>Mizoram</option>
-                                   <option value="Nagaland" 
-                                   <?php  if( 'Nagaland' == $row['o_state']) 
-                                   echo "selected" ?>>Nagaland</option>
-                                   <option value="Odisha" 
-                                   <?php  if( 'Odisha' == $row['o_state']) 
-                                   echo "selected" ?>>Odisha</option>
-                                   <option value="Pondicherry" 
-                                   <?php  if( 'Pondicherry' == $row['o_state']) 
-                                   echo "selected" ?>>Pondicherry</option>
-                                   <option value="Punjab" 
-                                   <?php  if( 'Punjab' == $row['o_state']) 
-                                   echo "selected" ?>>Punjab</option>
-                                   <option value="Rajasthan" 
-                                   <?php  if( 'Rajasthan' == $row['o_state']) 
-                                   echo "selected" ?>>Rajasthan</option>
-                                   <option value="Sikkim" 
-                                   <?php  if( 'Sikkim' == $row['o_state']) 
-                                   echo "selected" ?>>Sikkim</option>
-                                   <option value="Tamil Nadu" 
-                                   <?php  if( 'Tamil Nadu' == $row['o_state']) 
-                                   echo "selected" ?>>Tamil Nadu</option>
-                                   <option value="Telangana" 
-                                   <?php  if( 'Telangana' == $row['o_state']) 
-                                   echo "selected" ?>>Telangana</option>
-                                   <option value="Tripura" 
-                                   <?php  if( 'Tripura' == $row['o_state']) 
-                                   echo "selected" ?>>Tripura</option>
-                                   <option value="Uttaranchal" 
-                                   <?php  if( 'Uttaranchal' == $row['o_state']) 
-                                   echo "selected" ?>>Uttaranchal</option>
-                                   <option value="Uttar Pradesh" 
-                                   <?php  if( 'Uttar Pradesh' == $row['o_state']) 
-                                   echo "selected" ?>>Uttar Pradesh</option>
-                                   <option value="West Bengal" 
-                                   <?php  if( 'West Bengal' == $row['o_state']) 
-                                   echo "selected" ?>>West Bengal</option>
-
+                                   <?php check_states($state_list,  $row['o_state']) ?>
                                 </select>                
                             </div>
                           </div>
@@ -605,26 +395,33 @@ else
                       </div>
                     </div>
 
-                    <!-- Personal Info :- -->                    
+                    <!-- Personal Info :- --> 
+                    <!-- Photo -->
                     <h4><u>Personal Info :-</u></h4>
                     <div class="row">
-                    	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">	                       
+                    	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 	                        <label for="pic">Photo:</label>
-	                    </div> 
-	                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> 	
-	                        <input type="file" id="pic" name="pic" required value=<?php
-                          echo $row['photo'] ?> accept="image/*">
-	                    </div>                  	
-                    </div>              
-					         <br>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> 
+	                        <input type="file" id="pic" name="pic" value="<?php echo $row['photo'] ?>">
+                            <span><?php
+                            if(1 == $check_pic)
+                            {
+                              echo "<img src=images/".$row['photo']." width=200 height=200>";
+                            }
+                            ?></span>
+	                    </div>
+                    </div>
+                    <br>
+
+                    <!-- Extra Notes -->
                     <div class="row form-group">
-                      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                         
+                      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">                         
                            <label for="notes">Extra Notes:</label>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                          <textarea class="form-control" id="notes" name="notes" rows="10" value=<?php
-                          echo $row['notes'] ?> placeholder="Notes"></textarea>
+                          <textarea class="form-control" id="notes" name="notes" rows="10" placeholder="Notes"><?php
+                          echo $row['notes'] ?></textarea>
                       </div>
 	                </div>
                   <br>
@@ -638,22 +435,22 @@ else
 
                                 <div class="checkbox-inline">
                                     <input type="checkbox" id="comm_mail" name="comm[]" value="1" 
-                                    <?php if($c1) echo "checked" ?>>
+                                    <?php if($comm1) echo "checked" ?>>
                                     <label for="comm_mail">Mail</label>
                                 </div>
                                 <div class="checkbox-inline">
                                     <input type="checkbox" id="comm_message" name="comm[]" value="2" 
-                                    <?php if($c2) echo "checked" ?>>
+                                    <?php if($comm2) echo "checked" ?>>
                                     <label for="comm_message">Message</label>
                                 </div>
                                 <div class="checkbox-inline">
                                     <input type="checkbox" id="comm_phone" name="comm[]" value="3" 
-                                    <?php if($c3) echo "checked" ?>>
+                                    <?php if($comm3) echo "checked" ?>>
                                     <label for="comm_phone">Phone Call</label>
                                 </div>
                                 <div class="checkbox-inline">
                                     <input type="checkbox" id="comm_any" name="comm[]" value="4" 
-                                    <?php if($c4) echo "checked" ?>>
+                                    <?php if($comm4) echo "checked" ?>>
                                     <label for="comm_any">Any</label>
                                 </div>                         
                           </div>

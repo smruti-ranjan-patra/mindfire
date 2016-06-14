@@ -4,17 +4,10 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 
-	$host = 'localhost';
-	$userName = 'root';
-	$password = 'mindfire';
-	$dbName = 'registration';
+	include('db_connection.php');
 
-	$conn = mysqli_connect($host,$userName,$password,$dbName);
-
-	if (mysqli_connect_errno($conn))
-	{
-		die ('Failed to connect to MySQL :' . mysqli_connect_error());
-	}
+	$pic_update = 0;
+	
 	if(isset($_POST['submit']))
 	{
 		$count = 0;
@@ -219,6 +212,7 @@
 		}
 		else
 		{
+			echo $_POST['o_state'];
 			echo 'Please give a valid office State';
 			echo "<br>";
 			$count++;
@@ -261,11 +255,43 @@
 		}
 
 		// Validating Picture
-		if(isset($_POST['pic']) && !empty($_POST['pic']))
+		if(isset($_FILES['pic']))
 		{
-			$pic = formatted($_POST['pic']);
+		    $errors= array();
+		    $file_name = $_FILES['pic']['name'];
+		    $file_size = $_FILES['pic']['size'];
 
+		    if (0 < $file_size) 
+		    {
+				$pic_update = 1;
+			    $file_tmp = $_FILES['pic']['tmp_name'];
+			    $file_type= $_FILES['pic']['type'];
+
+			    $ext_arr = explode('.',$file_name);
+			    $file_ext = strtolower(end($ext_arr));
+			    $expensions = array("jpeg","jpg","png");
+			      
+			    if(in_array($file_ext,$expensions)=== false)
+			    {
+			       $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+			    }		      
+			    if($file_size > 8388608)
+			    {
+			       $errors[]='File size must be excately 2 MB';
+			    }		      
+			    if(empty($errors)==true)
+			    {
+			       move_uploaded_file($file_tmp,"images/".$file_name);
+			    }else
+			    {
+			       print_r($errors);
+			    }
+			}
 		}
+		// if(isset($_FILES['pic']) && !empty($_FILES['pic']))
+		// {
+		// 	$pic = formatted($file_name);
+		// }
 		else
 		{
 			echo 'Please give a valid Photo';
@@ -302,6 +328,17 @@
 		$check = 0;
 		if(isset($_POST['edit_id']) && 0 != $_POST['edit_id'])
 		{
+			if(1 == $pic_update)
+			{
+				$q_pic = "SELECT emp.photo AS photo FROM employee AS emp
+				WHERE emp.id = ".$_POST['edit_id'];
+
+				$result_pic = mysqli_query($conn, $q_pic);
+				$row_pic = mysqli_fetch_array($result_pic, MYSQLI_ASSOC);
+				$pic_name = "images/".$row_pic['photo'];
+	    		unlink($pic_name);
+			}
+
 			$q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, 
 			emp.last_name AS l_name, emp.prefix AS prefix, emp.gender AS gender, 
 			emp.dob AS dob, emp.marital_status AS marital, emp.employment AS employment, 
@@ -330,16 +367,30 @@
 
 			mysqli_query($conn,$update_add);
 
-			$update_emp = "UPDATE `employee` 
-			SET `first_name` = '$f_name', `middle_name` = '$m_name', `last_name` = '$l_name', 
-			`prefix` = '$prefix', `gender` = '$gender', `dob` = '$dob', `marital_status` = '$marital', 
-			`employment` = '$employment', `employer` = '$employer', `photo` = '$photo', 
-			`extra_note` = '$notes', `comm_id` = '$comm' 
-			WHERE id = ".$_POST['edit_id'];
+			if($pic_update)
+			{
+				$update_emp = "UPDATE `employee` 
+				SET `first_name` = '$f_name', `middle_name` = '$m_name', `last_name` = '$l_name', 
+				`prefix` = '$prefix', `gender` = '$gender', `dob` = '$dob', 
+				`marital_status` = '$marital', `employment` = '$employment', 
+				`employer` = '$employer', `photo` = '$file_name', `extra_note` = '$notes', 
+				`comm_id` = '$comm' 
+				WHERE id = ".$_POST['edit_id'];
 
-			mysqli_query($conn,$update_emp);
+				mysqli_query($conn,$update_emp);
+			}
+			else
+			{
+				$update_emp = "UPDATE `employee` 
+				SET `first_name` = '$f_name', `middle_name` = '$m_name', `last_name` = '$l_name', 
+				`prefix` = '$prefix', `gender` = '$gender', `dob` = '$dob', 
+				`marital_status` = '$marital', `employment` = '$employment', 
+				`employer` = '$employer', `extra_note` = '$notes', `comm_id` = '$comm' 
+				WHERE id = ".$_POST['edit_id'];
+
+				mysqli_query($conn,$update_emp);
+			}
 			$check = 1;
-
 			header("Location: display.php");
 		}
 
@@ -348,7 +399,7 @@
 			$q_employee = "INSERT INTO employee(first_name, middle_name, last_name, prefix, gender, 
 			dob, marital_status, employment, employer, photo, extra_note, comm_id) 
 			VALUES ('$f_name', '$m_name', '$l_name', '$prefix', '$gender', '$dob', '$marital', 
-			'$employment', '$employer', '$pic', '$notes', '$comm')";
+			'$employment', '$employer', '$file_name', '$notes', '$comm')";
 
 			$result_1 = mysqli_query($conn, $q_employee);
 
@@ -378,9 +429,10 @@
 	function formatted($data)
 		{
 			$data = trim($data);
-			//$data = stripslashes($data);
+			$data = stripslashes($data);
 			$data = htmlspecialchars($data);
 			return $data;
 		}
+	// echo 'Hello';
 	header("Location: display.php");
 	?>
