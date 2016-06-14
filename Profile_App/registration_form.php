@@ -25,16 +25,16 @@ if (isset($_GET['id']))
   include('db_connection.php');
 
   $q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, emp.last_name AS l_name, 
-  emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, 
-  emp.employment AS employment, emp.employer AS employer, res.street AS r_street, 
-  res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, res.fax AS r_fax, 
-  off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip AS o_zip, 
-  off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, emp.extra_note AS notes, 
-  emp.comm_id AS comm_id 
-  from employee AS emp 
-  INNER JOIN address AS res ON (emp.id = res.emp_id AND res.address_type = 'residence')
-  INNER JOIN address AS off ON (emp.id = off.emp_id AND off.address_type = 'office')
-  where emp.id = ".$_GET['id'];
+	emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, 
+	emp.employment AS employment, emp.employer AS employer, res.street AS r_street, 
+	res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, res.fax AS r_fax, 
+	off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip AS o_zip, 
+	off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, emp.extra_note AS notes, 
+	emp.comm_id AS comm_id 
+	from employee AS emp 
+	INNER JOIN address AS res ON (emp.id = res.emp_id AND res.address_type = 'residence')
+	INNER JOIN address AS off ON (emp.id = off.emp_id AND off.address_type = 'office')
+	where emp.id = ".$_GET['id'];
 
   $result = mysqli_query($conn, $q_fetch);
 
@@ -79,8 +79,13 @@ else
     <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
-              <form action="submit.php" method="post" enctype=multipart/form-data>      
-                <h1>Registration Form</h1>
+            <form action="submit.php" method="post" enctype=multipart/form-data>
+            	<?php
+            	if($_GET['id'])
+            		echo "<h1>Submit Form</h1>";
+            	else
+            		echo "<h1>Registration Form</h1>";
+            	?>
 
                 <!-- Hidden Form to get the ID -->
                 <input type="text" name="edit_id" hidden value="<?php
@@ -288,7 +293,8 @@ else
                             </div>
                           </div>
                           <div class="row form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                               
                                 <label for="r_zip">Zip:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -298,7 +304,8 @@ else
                             </div>
                           </div>
                           <div class="row form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                               
                                 <label for="r_phone">Phone:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -308,7 +315,8 @@ else
                             </div>
                           </div>
                           <div class="row form-group">
-                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                               
                                 <label for="r_fax">Fax:</label>
                             </div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -318,7 +326,10 @@ else
                           </div>
                       </div>
 
+
                       <!-- Office Address :- -->
+
+
                       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 
                         <h4><u>Office Address :-</u></h4>
@@ -398,8 +409,7 @@ else
 	                        <label for="pic">Photo:</label>
 	                    </div>
 	                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> 
-	                        <input type="file" id="pic" name="pic" value="<?php echo $row['photo']?>
-	                        ">
+	                        <input type="file" id="pic" name="pic" value="<?php echo $row['photo'] ?>">
                             <span><?php
                             if(1 == $check_pic)
                             {
@@ -416,8 +426,8 @@ else
                            <label for="notes">Extra Notes:</label>
                       </div>
                       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                          <textarea class="form-control" id="notes" name="notes" rows="10" 
-                          placeholder="Notes"><?php echo $row['notes'] ?></textarea>
+                          <textarea class="form-control" id="notes" name="notes" rows="10" placeholder="Notes"><?php
+                          echo $row['notes'] ?></textarea>
                       </div>
 	                </div>
                   <br>

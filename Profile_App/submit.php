@@ -270,9 +270,9 @@
 
 			    $ext_arr = explode('.',$file_name);
 			    $file_ext = strtolower(end($ext_arr));
-			    $expensions = array("jpeg","jpg","png");
+			    $extensions = array("jpeg","jpg","png");
 			      
-			    if(in_array($file_ext,$expensions)=== false)
+			    if(in_array($file_ext,$extensions)=== false)
 			    {
 			       $errors[]="extension not allowed, please choose a JPEG or PNG file.";
 			    }		      
@@ -332,7 +332,7 @@
 			if(1 == $pic_update)
 			{
 				$q_pic = "SELECT emp.photo AS photo FROM employee AS emp
-				WHERE emp.id = ".$_POST['edit_id'];
+					WHERE emp.id = ".$_POST['edit_id'];
 
 				$result_pic = mysqli_query($conn, $q_pic);
 				$row_pic = mysqli_fetch_array($result_pic, MYSQLI_ASSOC);
@@ -341,53 +341,53 @@
 			}
 
 			$q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, 
-			emp.last_name AS l_name, emp.prefix AS prefix, emp.gender AS gender, 
-			emp.dob AS dob, emp.marital_status AS marital, emp.employment AS employment, 
-			emp.employer AS employer, res.street AS r_street, res.city AS r_city, 
-			res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, res.fax AS r_fax, 
-			off.street AS o_street, off.city AS o_city, off.state AS o_state, 
-			off.zip AS o_zip, off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, 
-			emp.extra_note AS notes, emp.comm_id AS comm_id 
-			from employee AS emp 
-			INNER JOIN address AS res ON (emp.id = res.emp_id AND res.address_type = 'residence')
-			INNER JOIN address AS off ON (emp.id = off.emp_id AND off.address_type = 'office')
-			WHERE emp.id = ".$_POST['edit_id'];
+				emp.last_name AS l_name, emp.prefix AS prefix, emp.gender AS gender, 
+				emp.dob AS dob, emp.marital_status AS marital, emp.employment AS employment, 
+				emp.employer AS employer, res.street AS r_street, res.city AS r_city, 
+				res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, res.fax AS r_fax, 
+				off.street AS o_street, off.city AS o_city, off.state AS o_state, 
+				off.zip AS o_zip, off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, 
+				emp.extra_note AS notes, emp.comm_id AS comm_id 
+				from employee AS emp 
+				INNER JOIN address AS res ON (emp.id = res.emp_id AND res.address_type = 'residence')
+				INNER JOIN address AS off ON (emp.id = off.emp_id AND off.address_type = 'office')
+				WHERE emp.id = ".$_POST['edit_id'];
 
 			$result = mysqli_query($conn, $q_fetch);
 
 			$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 			$update_add = "UPDATE `address` 
-			SET `street` = '$r_street', `city` = '$r_city', `state` = '$r_state', `zip` = $r_zip, 
-			`phone` = $r_phone, `fax` = $r_fax 
-			WHERE (address_type = 'residence' AND emp_id = ".$_POST['edit_id'].");
-			UPDATE `address` 
-			SET `street` = '$o_street', `city` = '$o_city', `state` = '$o_state', `zip` = $o_zip, 
-			`phone` = $o_phone, fax` = $o_fax 
-			WHERE (address_type = 'office' AND emp_id = ".$_POST['edit_id'].");";
+				SET `street` = '$r_street', `city` = '$r_city', `state` = '$r_state', `zip` = $r_zip, 
+				`phone` = $r_phone, `fax` = $r_fax 
+				WHERE (address_type = 'residence' AND emp_id = ".$_POST['edit_id'].");
+				UPDATE `address` 
+				SET `street` = '$o_street', `city` = '$o_city', `state` = '$o_state', `zip` = $o_zip, 
+				`phone` = $o_phone, fax` = $o_fax 
+				WHERE (address_type = 'office' AND emp_id = ".$_POST['edit_id'].");";
 
 			mysqli_query($conn,$update_add);
 
 			if($pic_update)
 			{
 				$update_emp = "UPDATE `employee` 
-				SET `first_name` = '$f_name', `middle_name` = '$m_name', `last_name` = '$l_name', 
-				`prefix` = '$prefix', `gender` = '$gender', `dob` = '$dob', 
-				`marital_status` = '$marital', `employment` = '$employment', 
-				`employer` = '$employer', `photo` = '$file_name', `extra_note` = '$notes', 
-				`comm_id` = '$comm' 
-				WHERE id = ".$_POST['edit_id'];
+					SET `first_name` = '$f_name', `middle_name` = '$m_name', `last_name` = '$l_name', 
+					`prefix` = '$prefix', `gender` = '$gender', `dob` = '$dob', 
+					`marital_status` = '$marital', `employment` = '$employment', 
+					`employer` = '$employer', `photo` = '$file_name', `extra_note` = '$notes', 
+					`comm_id` = '$comm' 
+					WHERE id = ".$_POST['edit_id'];
 
 				mysqli_query($conn,$update_emp);
 			}
 			else
 			{
 				$update_emp = "UPDATE `employee` 
-				SET `first_name` = '$f_name', `middle_name` = '$m_name', `last_name` = '$l_name', 
-				`prefix` = '$prefix', `gender` = '$gender', `dob` = '$dob', 
-				`marital_status` = '$marital', `employment` = '$employment', 
-				`employer` = '$employer', `extra_note` = '$notes', `comm_id` = '$comm' 
-				WHERE id = ".$_POST['edit_id'];
+					SET `first_name` = '$f_name', `middle_name` = '$m_name', `last_name` = '$l_name', 
+					`prefix` = '$prefix', `gender` = '$gender', `dob` = '$dob', 
+					`marital_status` = '$marital', `employment` = '$employment', 
+					`employer` = '$employer', `extra_note` = '$notes', `comm_id` = '$comm' 
+					WHERE id = ".$_POST['edit_id'];
 
 				mysqli_query($conn,$update_emp);
 			}
@@ -398,9 +398,9 @@
 		if(0 == $check)
 		{
 			$q_employee = "INSERT INTO employee(first_name, middle_name, last_name, prefix, gender, 
-			dob, marital_status, employment, employer, photo, extra_note, comm_id) 
-			VALUES ('$f_name', '$m_name', '$l_name', '$prefix', '$gender', '$dob', '$marital', 
-			'$employment', '$employer', '$file_name', '$notes', '$comm')";
+				dob, marital_status, employment, employer, photo, extra_note, comm_id) 
+				VALUES ('$f_name', '$m_name', '$l_name', '$prefix', '$gender', '$dob', '$marital', 
+				'$employment', '$employer', '$file_name', '$notes', '$comm')";
 
 			$result_1 = mysqli_query($conn, $q_employee);
 
@@ -409,10 +409,10 @@
 				$employee_id = mysqli_insert_id($conn);
 
 	            $q_address = "INSERT INTO `address`(`emp_id`, `address_type`, `street`, `city`, 
-	            `state`, `zip`, `phone`, `fax`) 
-	            VALUES
-				($employee_id,'residence','$r_street','$r_city','$r_state','$r_zip','$r_phone','$r_fax'),
-				($employee_id,'office','$o_street','$o_city','$o_state','$o_zip','$o_phone','$o_fax')";
+		            `state`, `zip`, `phone`, `fax`) 
+		            VALUES
+					($employee_id,'residence','$r_street','$r_city','$r_state','$r_zip','$r_phone','$r_fax'),
+					($employee_id,'office','$o_street','$o_city','$o_state','$o_zip','$o_phone','$o_fax')";
 
 				$result_2 = mysqli_query($conn, $q_address);
 			} 
