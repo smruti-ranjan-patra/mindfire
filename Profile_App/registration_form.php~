@@ -285,6 +285,7 @@ else
                             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
                                 <label for="r_state">State:</label>
                             </div>
+				<?php echo $row['r_state']; ?>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                 <select name="r_state" id="r_state" class="form-control">
                                    <option value="">Select State</option>
@@ -361,6 +362,7 @@ else
                             col-md-offset-1 col-lg-offset-1">                               
                                 <label for="o_state">State:</label>
                             </div>
+				<?php echo $row['o_state']; ?>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                 <select name="o_state" id="o_state" class="form-control">
                                    <option value="">Select State</option>

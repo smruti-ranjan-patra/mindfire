@@ -214,7 +214,7 @@
 		}
 		else
 		{
-			//$o_state = $_POST['o_state'];
+			$o_state = $_POST['o_state'];
 			echo 'Please give a valid office State';
 			echo "<br>";
 			$count++;
