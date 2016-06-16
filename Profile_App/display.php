@@ -5,6 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
+	<!-- Navigation bar -->
+		<ul class="nav nav-pills">
+		<li role="presentation" class="active"><a href="registration_form.php">Register</a></li>
+		</ul>
 	<?php
 
 		ini_set('display_errors', 1);
@@ -57,10 +61,10 @@
 				<?php
 					$sl = 1;
 					while ($row = mysqli_fetch_array($result_3, MYSQLI_ASSOC))
-					{					
+					{
 						echo "<tr>";
-						echo "<td>".$sl++."</td>";					
-						foreach ($row as $key => $value) 
+						echo "<td>".$sl++."</td>";
+						foreach ($row as $key => $value)
 						{
 							if('comm_id' == $key)
 							{
@@ -94,13 +98,12 @@
 						<?php
 						echo "</tr>";
 					}
-				?>				
+				?>
 				</tbody>
 			</table>
 			</div>
 		<?php
 		}
-		?>		
-	<a href="registration_form.php">Register</a>
+		?>
 </body>
-</html>	
+</html>

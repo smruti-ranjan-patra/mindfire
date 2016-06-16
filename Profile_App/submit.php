@@ -1,4 +1,6 @@
 <?php
+	session_start();
+	//session_destroy();
 
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -17,11 +19,15 @@
 		if(isset($_POST['first_name']) && !empty($_POST['first_name']))
 		{
 			$f_name = formatted($_POST['first_name']);
+			$_SESSION['error_array']['first_name']['err_present'] = 0;
+			$_SESSION['error_array']['first_name']['val'] = $f_name;
+			$_SESSION['error_array']['first_name']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid First Name';
-			echo "<br>";
+			$_SESSION['error_array']['first_name']['err_present'] = 1;
+			$_SESSION['error_array']['first_name']['val'] = '';
+			$_SESSION['error_array']['first_name']['msg'] = 'Invalid First Name';
 			$count++;
 		}
 
@@ -29,23 +35,30 @@
 		if(isset($_POST['middle_name']) && !empty($_POST['middle_name']))
 		{
 			$m_name = formatted($_POST['middle_name']);
+			$_SESSION['error_array']['middle_name']['err_present'] = 0;
+			$_SESSION['error_array']['middle_name']['val'] = $m_name;
+			$_SESSION['error_array']['middle_name']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid Middle Name';
-			echo "<br>";
-			$count++;
+			$_SESSION['error_array']['middle_name']['err_present'] = 1;
+			$_SESSION['error_array']['middle_name']['val'] = ' ';
+			$_SESSION['error_array']['middle_name']['msg'] = '';
 		}
 
 		// Validating last name
 		if(isset($_POST['last_name']) && !empty($_POST['last_name']))
 		{
 			$l_name = formatted($_POST['last_name']);
+			$_SESSION['error_array']['last_name']['err_present'] = 0;
+			$_SESSION['error_array']['last_name']['val'] = $l_name;
+			$_SESSION['error_array']['last_name']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid Last Name';
-			echo "<br>";
+			$_SESSION['error_array']['last_name']['err_present'] = 1;
+			$_SESSION['error_array']['last_name']['val'] = '';
+			$_SESSION['error_array']['last_name']['msg'] = 'Invalid Last Name';
 			$count++;
 		}
 
@@ -53,28 +66,46 @@
 		if(isset($_POST['prefix']))
 		{
 			$prefix = $_POST['prefix'];
+			$_SESSION['error_array']['prefix']['err_present'] = 0;
+			$_SESSION['error_array']['prefix']['val'] = $prefix;
+			$_SESSION['error_array']['prefix']['msg'] = '';
 		}
 		else
 		{
+			$_SESSION['error_array']['prefix']['err_present'] = 1;
+			$_SESSION['error_array']['prefix']['val'] = '';
+			$_SESSION['error_array']['prefix']['msg'] = 'Invalid Prefix';
 			$count++;
 		}
 		// Validating gender
 		if(isset($_POST['gender']))
 		{
 			$gender = $_POST['gender'];
+			$_SESSION['error_array']['gender']['err_present'] = 0;
+			$_SESSION['error_array']['gender']['val'] = $gender;
+			$_SESSION['error_array']['gender']['msg'] = '';
 		}
 		else
 		{
+			$_SESSION['error_array']['gender']['err_present'] = 1;
+			$_SESSION['error_array']['gender']['val'] = '';
+			$_SESSION['error_array']['gender']['msg'] = 'Invalid Gender';
 			$count++;
 		}
 
 		// Validating date of birth
-		if(isset($_POST['dob']))
+		if(isset($_POST['dob']) && !empty($_POST['dob']))
 		{
 			$dob = $_POST['dob'];
+			$_SESSION['error_array']['dob']['err_present'] = 0;
+			$_SESSION['error_array']['dob']['val'] = $dob;
+			$_SESSION['error_array']['dob']['msg'] = '';
 		}
 		else
 		{
+			$_SESSION['error_array']['dob']['err_present'] = 1;
+			$_SESSION['error_array']['dob']['val'] = '';
+			$_SESSION['error_array']['dob']['msg'] = 'Invalid DOB';
 			$count++;
 		}
 
@@ -82,9 +113,15 @@
 		if(isset($_POST['marital']))
 		{
 			$marital = $_POST['marital'];
+			$_SESSION['error_array']['marital']['err_present'] = 0;
+			$_SESSION['error_array']['marital']['val'] = $marital;
+			$_SESSION['error_array']['marital']['msg'] = '';
 		}
 		else
 		{
+			$_SESSION['error_array']['marital']['err_present'] = 1;
+			$_SESSION['error_array']['marital']['val'] = '';
+			$_SESSION['error_array']['marital']['msg'] = 'Invalid Marital Status';
 			$count++;
 		}
 
@@ -92,9 +129,15 @@
 		if(isset($_POST['employment']))
 		{
 			$employment = $_POST['employment'];
+			$_SESSION['error_array']['employment']['err_present'] = 0;
+			$_SESSION['error_array']['employment']['val'] = $employment;
+			$_SESSION['error_array']['employment']['msg'] = '';
 		}
 		else
 		{
+			$_SESSION['error_array']['employment']['err_present'] = 1;
+			$_SESSION['error_array']['employment']['val'] = '';
+			$_SESSION['error_array']['employment']['msg'] = 'Invalid Employment Status';
 			$count++;
 		}
 
@@ -102,23 +145,30 @@
 		if(isset($_POST['employer']) && !empty($_POST['employer']))
 		{
 			$employer = formatted($_POST['employer']);
+			$_SESSION['error_array']['employer']['err_present'] = 0;
+			$_SESSION['error_array']['employer']['val'] = $employer;
+			$_SESSION['error_array']['employer']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid Employer Name';
-			echo "<br>";
-			$count++;
+			$_SESSION['error_array']['employer']['err_present'] = 1;
+			$_SESSION['error_array']['employer']['val'] = ' ';
+			$_SESSION['error_array']['employer']['msg'] = '';
 		}
 
 		// Validating residence street
 		if(isset($_POST['r_street']) && !empty($_POST['r_street']))
 		{
 			$r_street = formatted($_POST['r_street']);
+			$_SESSION['error_array']['r_street']['err_present'] = 0;
+			$_SESSION['error_array']['r_street']['val'] = $r_street;
+			$_SESSION['error_array']['r_street']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid residence Street';
-			echo "<br>";
+			$_SESSION['error_array']['r_street']['err_present'] = 1;
+			$_SESSION['error_array']['r_street']['val'] = '';
+			$_SESSION['error_array']['r_street']['msg'] = 'Invalid Street name';
 			$count++;
 		}
 
@@ -126,11 +176,15 @@
 		if(isset($_POST['r_city']) && !empty($_POST['r_city']))
 		{
 			$r_city = formatted($_POST['r_city']);
+			$_SESSION['error_array']['r_city']['err_present'] = 0;
+			$_SESSION['error_array']['r_city']['val'] = $r_city;
+			$_SESSION['error_array']['r_city']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid residence City';
-			echo "<br>";
+			$_SESSION['error_array']['r_city']['err_present'] = 1;
+			$_SESSION['error_array']['r_city']['val'] = '';
+			$_SESSION['error_array']['r_city']['msg'] = 'Invalid City name';
 			$count++;
 		}
 
@@ -138,12 +192,15 @@
 		if(isset($_POST['r_state']) && !empty($_POST['r_state']))
 		{
 			$r_state = $_POST['r_state'];
+			$_SESSION['error_array']['r_state']['err_present'] = 0;
+			$_SESSION['error_array']['r_state']['val'] = $r_state;
+			$_SESSION['error_array']['r_state']['msg'] = '';
 		}
 		else
 		{
-			//$r_state = $_POST['r_state'];
-			echo 'Please give a valid residence State';
-			echo "<br>";
+			$_SESSION['error_array']['r_state']['err_present'] = 1;
+			$_SESSION['error_array']['r_state']['val'] = '';
+			$_SESSION['error_array']['r_state']['msg'] = 'Invalid State name';
 			$count++;
 		}
 
@@ -151,47 +208,96 @@
 		if(isset($_POST['r_zip']) && !empty($_POST['r_zip']))
 		{
 			$r_zip = formatted($_POST['r_zip']);
-			if(!ctype_digit($r_zip))
+			$num_length = strlen((string)$r_zip);
+			if(ctype_digit($r_zip) && 6 == $num_length)
 			{
-				echo 'Please give a valid residence Zip';
-				echo "<br>";
+				$_SESSION['error_array']['r_zip']['err_present'] = 0;
+				$_SESSION['error_array']['r_zip']['val'] = $r_zip;
+				$_SESSION['error_array']['r_zip']['msg'] = '';
+			}
+			else
+			{
+				$_SESSION['error_array']['r_zip']['err_present'] = 1;
+				$_SESSION['error_array']['r_zip']['val'] = $r_zip;
+				$_SESSION['error_array']['r_zip']['msg'] = 'Invalid Zip';
 				$count++;
 			}
+		}
+		else
+		{
+			$_SESSION['error_array']['r_zip']['err_present'] = 1;
+			$_SESSION['error_array']['r_zip']['val'] = '';
+			$_SESSION['error_array']['r_zip']['msg'] = 'Invalid Zip';
+			$count++;
 		}
 
 		// Validating residence phone
 		if(isset($_POST['r_phone']) && !empty($_POST['r_phone']))
 		{
 			$r_phone = formatted($_POST['r_phone']);
-			if(!ctype_digit($r_phone))
+			$num_length = strlen((string)$r_phone);
+			if(ctype_digit($r_phone) && $num_length >= 7 && $num_length <= 12)
 			{
-				echo 'Please give a valid residence Phone';
-				echo "<br>";
+				$_SESSION['error_array']['r_phone']['err_present'] = 0;
+				$_SESSION['error_array']['r_phone']['val'] = $r_phone;
+				$_SESSION['error_array']['r_phone']['msg'] = '';
+			}
+			else
+			{
+				$_SESSION['error_array']['r_phone']['err_present'] = 1;
+				$_SESSION['error_array']['r_phone']['val'] = $r_phone;
+				$_SESSION['error_array']['r_phone']['msg'] = 'Invalid Phone no.';
 				$count++;
 			}
+		}
+		else
+		{
+			$_SESSION['error_array']['r_phone']['err_present'] = 1;
+			$_SESSION['error_array']['r_phone']['val'] = '';
+			$_SESSION['error_array']['r_phone']['msg'] = 'Invalid Phone no.';
+			$count++;
 		}
 
 		// Validating residence fax
 		if(isset($_POST['r_fax']) && !empty($_POST['r_fax']))
 		{
 			$r_fax = formatted($_POST['r_fax']);
-			if(!ctype_digit($r_fax))
+			$num_length = strlen((string)$r_fax);
+			if(ctype_digit($r_fax) && $num_length >= 7 && $num_length <= 12)
 			{
-				echo 'Please give a valid residence Fax';
-				echo "<br>";
+				$_SESSION['error_array']['r_fax']['err_present'] = 0;
+				$_SESSION['error_array']['r_fax']['val'] = $r_fax;
+				$_SESSION['error_array']['r_fax']['msg'] = '';
+			}
+			else
+			{
+				$_SESSION['error_array']['r_fax']['err_present'] = 1;
+				$_SESSION['error_array']['r_fax']['val'] = $r_fax;
+				$_SESSION['error_array']['r_fax']['msg'] = 'Invalid Fax no.';
 				$count++;
 			}
+		}
+		else
+		{
+			$_SESSION['error_array']['r_fax']['err_present'] = 1;
+			$_SESSION['error_array']['r_fax']['val'] = '';
+			$_SESSION['error_array']['r_fax']['msg'] = 'Invalid Fax no.';
+			$count++;
 		}
 
 		// Validating office street
 		if(isset($_POST['o_street']) && !empty($_POST['o_street']))
 		{
 			$o_street = formatted($_POST['o_street']);
+			$_SESSION['error_array']['o_street']['err_present'] = 0;
+			$_SESSION['error_array']['o_street']['val'] = $o_street;
+			$_SESSION['error_array']['o_street']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid office Street';
-			echo "<br>";
+			$_SESSION['error_array']['o_street']['err_present'] = 1;
+			$_SESSION['error_array']['o_street']['val'] = '';
+			$_SESSION['error_array']['o_street']['msg'] = 'Invalid Street name';
 			$count++;
 		}
 
@@ -199,11 +305,15 @@
 		if(isset($_POST['o_city']) && !empty($_POST['o_city']))
 		{
 			$o_city = formatted($_POST['o_city']);
+			$_SESSION['error_array']['o_city']['err_present'] = 0;
+			$_SESSION['error_array']['o_city']['val'] = $o_city;
+			$_SESSION['error_array']['o_city']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give a valid office City';
-			echo "<br>";
+			$_SESSION['error_array']['o_city']['err_present'] = 1;
+			$_SESSION['error_array']['o_city']['val'] = '';
+			$_SESSION['error_array']['o_city']['msg'] = 'Invalid City name';
 			$count++;
 		}
 
@@ -211,12 +321,15 @@
 		if(isset($_POST['o_state']) && !empty($_POST['o_state']))
 		{
 			$o_state = $_POST['o_state'];
+			$_SESSION['error_array']['o_state']['err_present'] = 0;
+			$_SESSION['error_array']['o_state']['val'] = $o_state;
+			$_SESSION['error_array']['o_state']['msg'] = '';
 		}
 		else
 		{
-			//$o_state = $_POST['o_state'];
-			echo 'Please give a valid office State';
-			echo "<br>";
+			$_SESSION['error_array']['o_state']['err_present'] = 1;
+			$_SESSION['error_array']['o_state']['val'] = '';
+			$_SESSION['error_array']['o_state']['msg'] = 'Invalid State name';
 			$count++;
 		}
 
@@ -224,80 +337,125 @@
 		if(isset($_POST['o_zip']) && !empty($_POST['o_zip']))
 		{
 			$o_zip = formatted($_POST['o_zip']);
-			if(!ctype_digit($o_zip))
+			$num_length = strlen((string)$o_zip);
+			if(ctype_digit($o_zip) && 6 == $num_length)
 			{
-				echo 'Please give a valid office Zip';
-				echo "<br>";
+				$_SESSION['error_array']['o_zip']['err_present'] = 0;
+				$_SESSION['error_array']['o_zip']['val'] = $o_zip;
+				$_SESSION['error_array']['o_zip']['msg'] = '';
+			}
+			else
+			{
+				$_SESSION['error_array']['o_zip']['err_present'] = 1;
+				$_SESSION['error_array']['o_zip']['val'] = $o_zip;
+				$_SESSION['error_array']['o_zip']['msg'] = 'Invalid Zip';
 				$count++;
 			}
+		}
+		else
+		{
+			$_SESSION['error_array']['o_zip']['err_present'] = 1;
+			$_SESSION['error_array']['o_zip']['val'] = '';
+			$_SESSION['error_array']['o_zip']['msg'] = 'Invalid Zip';
+			$count++;
 		}
 
 		// Validating office phone
 		if(isset($_POST['o_phone']) && !empty($_POST['o_phone']))
 		{
 			$o_phone = formatted($_POST['o_phone']);
-			if(!ctype_digit($o_phone))
+			$num_length = strlen((string)$o_phone);
+			if(ctype_digit($o_phone) && $num_length >= 7 && $num_length <= 12)
 			{
-				echo 'Please give a valid office Phone';
-				echo "<br>";
+				$_SESSION['error_array']['o_phone']['err_present'] = 0;
+				$_SESSION['error_array']['o_phone']['val'] = $o_phone;
+				$_SESSION['error_array']['o_phone']['msg'] = '';
+			}
+			else
+			{
+				$_SESSION['error_array']['o_phone']['err_present'] = 1;
+				$_SESSION['error_array']['o_phone']['val'] = $o_phone;
+				$_SESSION['error_array']['o_phone']['msg'] = 'Invalid Phone no.';
 				$count++;
 			}
+		}
+		else
+		{
+			$_SESSION['error_array']['o_phone']['err_present'] = 1;
+			$_SESSION['error_array']['o_phone']['val'] = '';
+			$_SESSION['error_array']['o_phone']['msg'] = 'Invalid Phone no.';
+			$count++;
 		}
 
 		// Validating office fax
 		if(isset($_POST['o_fax']) && !empty($_POST['o_fax']))
 		{
 			$o_fax = formatted($_POST['o_fax']);
-			if(!ctype_digit($o_fax))
+			$num_length = strlen((string)$r_fax);
+			if(ctype_digit($o_fax) && $num_length >= 7 && $num_length <= 12)
 			{
-				echo 'Please give a valid office Fax';
-				echo "<br>";
+				$_SESSION['error_array']['o_fax']['err_present'] = 0;
+				$_SESSION['error_array']['o_fax']['val'] = $o_fax;
+				$_SESSION['error_array']['o_fax']['msg'] = '';
+			}
+			else
+			{
+				$_SESSION['error_array']['o_fax']['err_present'] = 1;
+				$_SESSION['error_array']['o_fax']['val'] = $o_fax;
+				$_SESSION['error_array']['o_fax']['msg'] = 'Invalid Fax no.';
 				$count++;
 			}
+		}
+		else
+		{
+			$_SESSION['error_array']['o_fax']['err_present'] = 1;
+			$_SESSION['error_array']['o_fax']['val'] = '';
+			$_SESSION['error_array']['o_fax']['msg'] = 'Invalid Fax no.';
+			$count++;
 		}
 
 		// Validating Picture
 		if(isset($_FILES['pic']))
 		{
-		    $errors= array();
-		    $file_name = $_FILES['pic']['name'];
-		    $file_size = $_FILES['pic']['size'];
+			$errors= array();
+			$file_name = $_FILES['pic']['name'];
+			$file_size = $_FILES['pic']['size'];
 
-		    if (0 < $file_size) 
-		    {
+			if (0 < $file_size) 
+			{
 				$pic_update = 1;
-			    $file_tmp = $_FILES['pic']['tmp_name'];
-			    $file_type= $_FILES['pic']['type'];
+				$file_tmp = $_FILES['pic']['tmp_name'];
+				$file_type= $_FILES['pic']['type'];
 
-			    $ext_arr = explode('.',$file_name);
-			    $file_ext = strtolower(end($ext_arr));
-			    $extensions = array("jpeg","jpg","png");
-			      
-			    if(in_array($file_ext,$extensions)=== false)
-			    {
-			       $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-			    }		      
-			    if($file_size > 8388608)
-			    {
-			       $errors[]='File size must be excately 2 MB';
-			    }		      
-			    if(empty($errors)==true)
-			    {
-			       move_uploaded_file($file_tmp, PIC_PATH.$file_name);
-			    }else
-			    {
-			       print_r($errors);
-			    }
+				$ext_arr = explode('.',$file_name);
+				$file_ext = strtolower(end($ext_arr));
+				$extensions = array("jpeg","jpg","png");
+				if(in_array($file_ext,$extensions)=== false)
+				{
+					$errors[]="extension not allowed, please choose a JPEG or PNG file.";
+				}
+				if($file_size > 8388608)
+				{
+					$errors[]='File size must be excately 2 MB';
+				}
+				if(empty($errors)==true)
+				{
+					move_uploaded_file($file_tmp, PIC_PATH.$file_name);
+				}
+				else
+				{
+					//print_r($errors);
+				}
 			}
+			$_SESSION['error_array']['photo']['err_present'] = 0;
+			$_SESSION['error_array']['photo']['val'] = $file_name;
+			$_SESSION['error_array']['photo']['msg'] = '';
 		}
-		// if(isset($_FILES['pic']) && !empty($_FILES['pic']))
-		// {
-		// 	$pic = formatted($file_name);
-		// }
 		else
 		{
-			echo 'Please give a valid Photo';
-			echo "<br>";
+			$_SESSION['error_array']['photo']['err_present'] = 1;
+			$_SESSION['error_array']['photo']['val'] = ' ';
+			$_SESSION['error_array']['photo']['msg'] = 'Invalid Photo';
 			$count++;
 		}
 		
@@ -305,27 +463,38 @@
 		if(isset($_POST['notes']))
 		{
 			$notes = formatted($_POST['notes']);
+			$_SESSION['error_array']['notes']['err_present'] = 0;
+			$_SESSION['error_array']['notes']['val'] = $notes;
+			$_SESSION['error_array']['notes']['msg'] = '';
 		}
 		else
 		{
 			$notes = ' ';
+			$_SESSION['error_array']['photo']['err_present'] = 1;
+			$_SESSION['error_array']['photo']['val'] = $notes;
+			$_SESSION['error_array']['photo']['msg'] = '';
 		}
 
 		// Validating Communication Medium
 		if(isset($_POST['comm']) && !empty($_POST['comm']))
 		{
 			$comm = implode(', ', $_POST['comm']);
+			$_SESSION['error_array']['comm']['err_present'] = 0;
+			$_SESSION['error_array']['comm']['val'] = $_POST['comm'];
+			$_SESSION['error_array']['comm']['msg'] = '';
 		}
 		else
 		{
-			echo 'Please give at least one Communication Medium';
-			echo "<br>";
+			$_SESSION['error_array']['comm']['err_present'] = 1;
+			$_SESSION['error_array']['comm']['val'] = '';
+			$_SESSION['error_array']['comm']['msg'] = 'Select at least one medium';
 			$count++;
 		}
 
 		if($count > 0)
 		{
-			exit;
+			header("Location: registration_form.php?validation=1");
+			exit();
 		}
 		$check = 0;
 		if(isset($_POST['edit_id']) && $_POST['edit_id'] != 0)
@@ -338,7 +507,7 @@
 				$result_pic = mysqli_query($conn, $q_pic);
 				$row_pic = mysqli_fetch_array($result_pic, MYSQLI_ASSOC);
 				$pic_name = PIC_PATH.$row_pic['photo'];
-	    		unlink($pic_name);
+				unlink($pic_name);
 			}
 
 			$q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, 
@@ -411,20 +580,20 @@
 			{
 				$employee_id = mysqli_insert_id($conn);
 
-	            $q_address = "INSERT INTO `address`(`emp_id`, `address_type`, `street`, `city`, 
-		            `state`, `zip`, `phone`, `fax`) 
-		            VALUES
+				$q_address = "INSERT INTO `address`(`emp_id`, `address_type`, `street`, `city`, 
+					`state`, `zip`, `phone`, `fax`) 
+					VALUES
 					($employee_id,'residence','$r_street','$r_city','$r_state','$r_zip','$r_phone','$r_fax'),
 					($employee_id,'office','$o_street','$o_city','$o_state','$o_zip','$o_phone','$o_fax')";
 
 				$result_2 = mysqli_query($conn, $q_address);
-			} 
+			}
 			else
 			{
-				echo 'Not inserting'; 
+				echo 'Not inserting';
 				exit;
 			}
-		}		
+		}
 	}
 	else
 	{
@@ -437,6 +606,5 @@
 			$data = htmlspecialchars($data);
 			return $data;
 		}
-	// echo 'Hello';
 	header("Location: display.php");
-	?>
+?>
