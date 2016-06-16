@@ -2,13 +2,19 @@
 <html>
 <head>
 	<title>Display Page</title>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/form.css">
 </head>
 <body>
 	<!-- Navigation bar -->
-		<ul class="nav nav-pills">
-		<li role="presentation" class="active"><a href="registration_form.php">Register</a></li>
-		</ul>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li><a href="registration_form.php">Register</a></li>
+				<li class="active"><a href="display.php">Display details</a></li>
+			</ul>
+		</div>
+	</nav>
 	<?php
 
 		ini_set('display_errors', 1);
@@ -34,10 +40,13 @@
 
 		$rnum = 0;
 		$rnum = mysqli_num_rows($result_3);
-
-		if($rnum > 0)
+		if(0 == $rnum)
+		{
+			echo "<h3>No Record Present</h3>";
+		}
+		else
 		{?>
-			<h1><u>Employee Details :-</u></h1>
+			<h2><u>Employee Details :-</u></h2>
 			<div class="table-responsive">
 			<table class="table table-bordered table-hover">
 				<thead>
@@ -89,9 +98,26 @@
 								echo "<td>".$value."</td>";
 							}
 						}
-						$pic_name = PIC_PATH.$row['photo'];?>
-						<td><img src="<?php echo $pic_name ?>"
-						alt="No image found" width=100 height=100></td>
+						if($row['photo'])
+						{
+							$pic_name = PIC_PATH.$row['photo'];
+							echo '<td><img src="'.$pic_name.'" width=100 height=100</td>';
+						}
+						elseif($row['gender'] == 'Male')
+						{
+							echo '<td><img src="images/default_male_pic.jpg" width=100 height=100
+							</td>';
+						}
+						elseif($row['gender'] == 'Female')
+						{
+							echo '<td><img src="images/default_female_pic.jpg" width=100 height=100
+							</td>';
+						}
+						else
+						{
+							echo '<td><img src="images/default_pic.jpg" width=100 height=100</td>';
+						}
+						?>
 						<td><a href="registration_form.php?id=<?php echo $row['id'] ?>">
 						<span class="glyphicon glyphicon-pencil" ></span></a></td>
 						<td><a href="delete.php?id=<?php echo $row['id']?>">

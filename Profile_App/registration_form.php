@@ -1,104 +1,100 @@
 <?php
 
-session_start();
-// echo '<pre>';
-// print_r($_SESSION['error_array']);
-// echo '</pre>';
+	session_start();
 
-$check_pic = 0;
-include('states.php');
-include('photo_path.php');
-/**
-* Checks each field of select dropdown and makes the required as selected
-*
-* @param array,string
-* @return void
-*/
-function check_states($st_list, $data)
-{
-	foreach($st_list as $value)
+	$check_pic = 0;
+	include('states.php');
+	include('photo_path.php');
+	/**
+	* Checks each field of select dropdown and makes the required as selected
+	*
+	* @param array,string
+	* @return void
+	*/
+	function check_states($st_list, $data)
 	{
-		?>
-		<option <?php if ($value == $data): ?>selected="selected"<?php endif ?> value ="<?php 
-		echo $value ?>" >
-		<?php echo $value ?>
-		</option>
-		<?php
+		foreach($st_list as $value)
+		{
+			?>
+			<option <?php if ($value == $data): ?>selected="selected"<?php endif ?> value ="<?php 
+			echo $value ?>" >
+			<?php echo $value ?>
+			</option>
+			<?php
+		}
 	}
-}
-if(isset($_GET['validation']) && $_GET['validation'] == 1)
-{
-	$communcation_array = implode(', ',$_SESSION['error_array']['comm']['val']);
-	$com = explode(", ",$communcation_array);
-	$length = count($com);
-	$check_box1 = $check_box2 = $check_box3 = $check_box4 = 0;
-	for($i = 0; $i < $length; $i++)
+	if(isset($_GET['validation']) && $_GET['validation'] == 1)
 	{
-	if(1 == $com[$i])
-		$check_box1 = 1;
-	if(2 == $com[$i])
-		$check_box2 = 1;
-	if(3 == $com[$i])
-		$check_box3 = 1;
-	if(4 == $com[$i])
-		$check_box4 = 1;
+		$communcation_array = implode(', ',$_SESSION['error_array']['comm']['val']);
+		$com = explode(", ",$communcation_array);
+		$length = count($com);
+		$check_box1 = $check_box2 = $check_box3 = $check_box4 = 0;
+		for($i = 0; $i < $length; $i++)
+		{
+		if(1 == $com[$i])
+			$check_box1 = 1;
+		if(2 == $com[$i])
+			$check_box2 = 1;
+		if(3 == $com[$i])
+			$check_box3 = 1;
+		if(4 == $com[$i])
+			$check_box4 = 1;
+		}
 	}
-}
 
-if (isset($_GET['id']))
-{
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
-
-	$check_pic = 1;
-
-	include('db_connection.php');
-
-	$q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, emp.last_name AS l_name, 
-		emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS 
-		marital_status, emp.employment AS employment, emp.employer AS employer, res.street AS 
-		r_street, res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, 
-		res.fax AS r_fax, off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip 
-		AS o_zip, off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, 
-		emp.extra_note AS notes, emp.comm_id AS comm_id 
-		from employee AS emp 
-		INNER JOIN address AS res ON (emp.id = res.emp_id AND res.address_type = 'residence')
-		INNER JOIN address AS off ON (emp.id = off.emp_id AND off.address_type = 'office')
-		where emp.id = ".$_GET['id'];
-
-	$result = mysqli_query($conn, $q_fetch);
-
-	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-	$com = explode(", ",$row['comm_id']);
-	$length = count($com);
-	$check_box1 = $check_box2 = $check_box3 = $check_box4 = 0;
-	for($i = 0; $i < $length; $i++)
+	if (isset($_GET['id']))
 	{
-	if(1 == $com[$i])
-		$check_box1 = 1;
-	if(2 == $com[$i])
-		$check_box2 = 1;
-	if(3 == $com[$i])
-		$check_box3 = 1;
-	if(4 == $com[$i])
-		$check_box4 = 1;
+		ini_set('display_errors', 1);
+		ini_set('display_startup_errors', 1);
+		error_reporting(E_ALL);
+
+		$check_pic = 1;
+
+		include('db_connection.php');
+
+		$q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, emp.last_name AS 
+			l_name, emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS 
+			marital_status, emp.employment AS employment, emp.employer AS employer, res.street AS 
+			r_street, res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS 
+			r_phone, res.fax AS r_fax, off.street AS o_street, off.city AS o_city, off.state AS 
+			o_state, off.zip AS o_zip, off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, 
+			emp.extra_note AS notes, emp.comm_id AS comm_id 
+			from employee AS emp 
+			INNER JOIN address AS res ON (emp.id = res.emp_id AND res.address_type = 'residence')
+			INNER JOIN address AS off ON (emp.id = off.emp_id AND off.address_type = 'office')
+			where emp.id = ".$_GET['id'];
+
+		$result = mysqli_query($conn, $q_fetch);
+
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+		$com = explode(", ",$row['comm_id']);
+		$length = count($com);
+		$check_box1 = $check_box2 = $check_box3 = $check_box4 = 0;
+		for($i = 0; $i < $length; $i++)
+		{
+		if(1 == $com[$i])
+			$check_box1 = 1;
+		if(2 == $com[$i])
+			$check_box2 = 1;
+		if(3 == $com[$i])
+			$check_box3 = 1;
+		if(4 == $com[$i])
+			$check_box4 = 1;
+		}
 	}
-}
-else
-{
-	$_GET['id'] = 0;
-	$row['prefix'] = 'Mr';
-	$row['gender'] = 'Male';
-	$row['marital_status'] = 'Single';
-	$row['employment'] = 'Employed';
-	$row['photo'] = '';
-}
+	else
+	{
+		$_GET['id'] = 0;
+		$row['prefix'] = 'Mr';
+		$row['gender'] = 'Male';
+		$row['marital_status'] = 'Single';
+		$row['employment'] = 'Employed';
+		$row['photo'] = '';
+	}
 ?>
 
 <!DOCTYPE html>
-
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,13 +102,18 @@ else
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/form.css">
 	</head>
-	<body>
-	<div class="container">
+	<body class="bg">
+	<!-- Navigation bar -->
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="registration_form.php">Register</a></li>
+				<li><a href="display.php">Display details</a></li>
+			</ul>
+		</div>
+	</nav>
 
-		<!-- Navigation bar -->
-		<ul class="nav nav-pills">
-		<li role="presentation" class="active"><a href="display.php">Display Records</a></li>
-		</ul>
+	<div style="container">
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
@@ -777,8 +778,9 @@ else
 							<label for="pic">Photo:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8"> 
-							<input type="file" id="pic" name="pic" value="<?php echo $row['photo'] ?>">
-							<span><?php
+							<input type="file" id="pic" name="pic" value="<?php echo $row['photo'] 
+							?>"><span>
+							<?php
 							if(1 == $check_pic)
 							{
 							  echo "<img src=".PIC_PATH.$row['photo']." width=200 height=200>";
