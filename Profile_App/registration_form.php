@@ -8,12 +8,19 @@ session_start();
 $check_pic = 0;
 include('states.php');
 include('photo_path.php');
+/**
+* Checks each field of select dropdown and makes the required as selected
+*
+* @param array,string
+* @return void
+*/
 function check_states($st_list, $data)
 {
 	foreach($st_list as $value)
 	{
 		?>
-		<option <?php if ($value == $data): ?>selected="selected"<?php endif ?> value ="<?php echo $value ?>" >
+		<option <?php if ($value == $data): ?>selected="selected"<?php endif ?> value ="<?php 
+		echo $value ?>" >
 		<?php echo $value ?>
 		</option>
 		<?php
@@ -49,12 +56,12 @@ if (isset($_GET['id']))
 	include('db_connection.php');
 
 	$q_fetch = "SELECT emp.first_name AS f_name, emp.middle_name AS m_name, emp.last_name AS l_name, 
-		emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS marital_status, 
-		emp.employment AS employment, emp.employer AS employer, res.street AS r_street, 
-		res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, res.fax AS r_fax, 
-		off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip AS o_zip, 
-		off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, emp.extra_note AS notes, 
-		emp.comm_id AS comm_id 
+		emp.prefix AS prefix, emp.gender AS gender, emp.dob AS dob, emp.marital_status AS 
+		marital_status, emp.employment AS employment, emp.employer AS employer, res.street AS 
+		r_street, res.city AS r_city, res.state AS r_state, res.zip AS r_zip, res.phone AS r_phone, 
+		res.fax AS r_fax, off.street AS o_street, off.city AS o_city, off.state AS o_state, off.zip 
+		AS o_zip, off.phone AS o_phone, off.fax AS o_fax, emp.photo AS photo, 
+		emp.extra_note AS notes, emp.comm_id AS comm_id 
 		from employee AS emp 
 		INNER JOIN address AS res ON (emp.id = res.emp_id AND res.address_type = 'residence')
 		INNER JOIN address AS off ON (emp.id = off.emp_id AND off.address_type = 'office')
@@ -97,7 +104,7 @@ else
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Registration Form</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/form.css">        
+		<link rel="stylesheet" type="text/css" href="css/form.css">
 	</head>
 	<body>
 	<div class="container">
@@ -130,7 +137,7 @@ else
 				<!-- Names -->
 				<div class="well">
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">	                       
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<label for="first_name">First Name:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -148,12 +155,13 @@ else
 							?> >
 							<?php 
 							if(isset($_GET['validation']) && 1 == $_GET['validation'])
-								echo '<span class="text-danger">'.$_SESSION['error_array']['first_name']['msg']."</span>"; ?>
+								echo '<span class="text-danger">'.$_SESSION['error_array']
+								['first_name']['msg']."</span>"; ?>
 						</div>
 					</div>
 
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">                      
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<label for="middle_mail">Middle Name:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -171,12 +179,13 @@ else
 							?> >
 							<?php 
 							if(isset($_GET['validation']) && 1 == $_GET['validation'])
-								echo '<span class="text-danger">'.$_SESSION['error_array']['middle_name']['msg']."</span>"; ?>
+								echo '<span class="text-danger">'.$_SESSION['error_array']
+								['middle_name']['msg']."</span>"; ?>
 						</div>
 					</div>
 
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">                         
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<label for="last_name">Last Name:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -194,7 +203,8 @@ else
 							?> >
 							<?php 
 							if(isset($_GET['validation']) && 1 == $_GET['validation'])
-								echo '<span class="text-danger">'.$_SESSION['error_array']['last_name']['msg']."</span>"; ?>
+								echo '<span class="text-danger">'.$_SESSION['error_array']
+								['last_name']['msg']."</span>"; ?>
 						</div>
 					</div>
 
@@ -218,7 +228,7 @@ else
 								{
 									echo "checked";
 								}
-								?>>Mr								
+								?>>Mr
 							</label>
 							</div>
 							<div class="radio-inline">
@@ -259,7 +269,7 @@ else
 
 					<!-- Gender -->
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">                         
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<label>Gender:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -316,7 +326,7 @@ else
 
 					<!-- Date of birth -->
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">                         
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<label for="dob">DOB:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -333,13 +343,14 @@ else
 							?> >
 							<?php 
 							if(isset($_GET['validation']) && 1 == $_GET['validation'])
-								echo '<span class="text-danger">'.$_SESSION['error_array']['dob']['msg']."</span>"; ?>
+								echo '<span class="text-danger">'.$_SESSION['error_array']['dob']
+								['msg']."</span>"; ?>
 						</div>
 					</div>
 
 					<!-- Marital Status -->
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">                         
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							 <label for="marital">Marital Status:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -410,8 +421,10 @@ else
 								<?php
 								if(isset($_GET['validation']) && $_GET['validation'] == 1)
 								{
-									if( 'Unemployed' == $_SESSION['error_array']['employment']['val']) 
+									if( 'Unemployed' == $_SESSION['error_array']['employment']['val'])
+									{
 										echo "checked";
+									}
 								}
 								elseif( 'Unemployed' == $row['employment'])
 								{
@@ -425,7 +438,7 @@ else
 
 					<!-- Employer -->
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">	                       
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<label for="employer">Employer:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -443,7 +456,8 @@ else
 							?> >
 							<?php 
 							if(isset($_GET['validation']) && 1 == $_GET['validation'])
-								echo '<span class="text-danger">'.$_SESSION['error_array']['employer']['msg']."</span>"; ?>
+								echo '<span class="text-danger">'.$_SESSION['error_array']
+								['employer']['msg']."</span>"; ?>
 						</div>
 						</div>
 
@@ -463,7 +477,8 @@ else
 									<?php
 									if(isset($_GET['validation']) && $_GET['validation'] == 1)
 									{
-										echo "value='".$_SESSION['error_array']['r_street']['val']."'";
+										echo "value='".$_SESSION['error_array']['r_street']
+										['val']."'";
 									}
 									else
 									{
@@ -472,12 +487,13 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['r_street']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['r_street']['msg']."</span>"; ?>
 								</div>
 							</div>
 
 							<div class="row form-group">
-								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
+								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 									<label for="r_city">City:</label>
 								</div>
 								<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -495,12 +511,13 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['r_city']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['r_city']['msg']."</span>"; ?>
 								</div>
 							</div>
 
 							<div class="row form-group">
-								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">                               
+								<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 									<label for="r_state">State:</label>
 								</div>
 								<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -509,7 +526,8 @@ else
 										<?php
 										if(isset($_GET['validation']) && $_GET['validation'] == 1)
 										{
-											check_states($state_list, $_SESSION['error_array']['r_state']['val']);
+											check_states($state_list, $_SESSION['error_array']
+											['r_state']['val']);
 										}
 										else
 										{
@@ -518,7 +536,8 @@ else
 									</select>
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['r_state']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['r_state']['msg']."</span>"; ?>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -540,7 +559,8 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['r_zip']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['r_zip']['msg']."</span>"; ?>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -548,8 +568,8 @@ else
 									<label for="r_phone">Phone:</label>
 								</div>
 								<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-									<input type="text" id="r_phone" name="r_phone" class="form-control" 
-									placeholder="09123456789" 
+									<input type="text" id="r_phone" name="r_phone" 
+									class="form-control" placeholder="09123456789" 
 									<?php
 									if(isset($_GET['validation']) && $_GET['validation'] == 1)
 									{
@@ -562,7 +582,8 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['r_phone']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['r_phone']['msg']."</span>"; ?>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -584,7 +605,8 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['r_fax']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['r_fax']['msg']."</span>"; ?>
 								</div>
 							</div>
 						</div>
@@ -601,12 +623,13 @@ else
 									<label for="o_street">Street:</label>
 								</div>
 								<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-									<input type="text" id="o_street" name="o_street" class="form-control" 
-									placeholder="Street" 
+									<input type="text" id="o_street" name="o_street" 
+									class="form-control" placeholder="Street" 
 									<?php
 									if(isset($_GET['validation']) && $_GET['validation'] == 1)
 									{
-										echo "value='".$_SESSION['error_array']['o_street']['val']."'";
+										echo "value='".$_SESSION['error_array']['o_street']
+										['val']."'";
 									}
 									else
 									{
@@ -615,7 +638,8 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['o_street']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['o_street']['msg']."</span>"; ?>
 								</div>
 							</div>
 
@@ -639,7 +663,8 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['o_city']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['o_city']['msg']."</span>"; ?>
 								</div>
 							</div>
 
@@ -654,7 +679,8 @@ else
 										<?php
 										if(isset($_GET['validation']) && $_GET['validation'] == 1)
 										{
-											check_states($state_list, $_SESSION['error_array']['o_state']['val']);
+											check_states($state_list, $_SESSION['error_array']
+											['o_state']['val']);
 										}
 										else
 										{
@@ -664,7 +690,8 @@ else
 									</select>
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['o_state']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['o_state']['msg']."</span>"; ?>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -687,7 +714,8 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['o_zip']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['o_zip']['msg']."</span>"; ?>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -696,8 +724,8 @@ else
 									<label for="o_phone">Phone:</label>
 								</div>
 								<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-									<input type="text" id="o_phone" name="o_phone" class="form-control"
-									placeholder="09123456789"
+									<input type="text" id="o_phone" name="o_phone" 
+									class="form-control" placeholder="09123456789"
 									<?php
 									if(isset($_GET['validation']) && $_GET['validation'] == 1)
 									{
@@ -710,7 +738,8 @@ else
 									?> >
 									<?php 
 									if(isset($_GET['validation']) && 1 == $_GET['validation'])
-										echo '<span class="text-danger">'.$_SESSION['error_array']['o_phone']['msg']."</span>"; ?>
+										echo '<span class="text-danger">'.$_SESSION['error_array']
+										['o_phone']['msg']."</span>"; ?>
 								</div>
 							</div>
 							<div class="row form-group">
@@ -733,7 +762,8 @@ else
 								?> >
 								<?php 
 								if(isset($_GET['validation']) && 1 == $_GET['validation'])
-									echo '<span class="text-danger">'.$_SESSION['error_array']['o_fax']['msg']."</span>"; ?>
+									echo '<span class="text-danger">'.$_SESSION['error_array']
+									['o_fax']['msg']."</span>"; ?>
 							</div>
 							</div>
 						</div>
@@ -775,14 +805,14 @@ else
 							}
 							?>
 							<textarea class="form-control" id="notes" name="notes" rows="10" 
-							placeholder="Notes"><?php echo $note_value; ?></textarea>							
+							placeholder="Notes"><?php echo $note_value; ?></textarea>
 						</div>
 					</div>
 					<br>
 
 					<!-- Preferred Communicatio -->
 					<div class="row form-group">
-						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">                             
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<label>Preferred communication medium:</label>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
@@ -807,7 +837,8 @@ else
 								<label for="comm_any">Any</label>
 							</div>
 							<?php if(isset($_GET['validation']) && 1 == $_GET['validation'])
-								echo '<span class="text-danger">'.$_SESSION['error_array']['comm']['msg']."</span>"; ?>
+								echo '<span class="text-danger">'.$_SESSION['error_array']['comm']
+								['msg']."</span>"; ?>
 						</div>
 					</div>
 				</div>
@@ -817,11 +848,18 @@ else
 				<div class="row form-group text-center">
 					<?php
 					if (!empty($_GET['id']))
-						echo '<button class="btn btn-primary"  type="submit" name="submit" value="update">Update</button>';
+					{
+						echo '<button class="btn btn-primary"  type="submit" name="submit" 
+						value="update">Update</button>';
+					}
 					else
-						echo '<button class="btn btn-primary"  type="submit" name="submit" value="submit">Submit</button>';
+					{
+						echo '<button class="btn btn-primary"  type="submit" name="submit" 
+						value="submit">Submit</button>';
+					}
 					?>
-					<button class="btn btn-danger" type="reset" name="reset" value="reset">Reset</button>
+					<button class="btn btn-danger" type="reset" name="reset" value="reset">Reset
+					</button>
 				</div>
 			</form>
 		</div>

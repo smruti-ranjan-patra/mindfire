@@ -583,8 +583,10 @@
 				$q_address = "INSERT INTO `address`(`emp_id`, `address_type`, `street`, `city`, 
 					`state`, `zip`, `phone`, `fax`) 
 					VALUES
-					($employee_id,'residence','$r_street','$r_city','$r_state','$r_zip','$r_phone','$r_fax'),
-					($employee_id,'office','$o_street','$o_city','$o_state','$o_zip','$o_phone','$o_fax')";
+					($employee_id,'residence','$r_street','$r_city','$r_state','$r_zip','$r_phone',
+					'$r_fax'),
+					($employee_id,'office','$o_street','$o_city','$o_state','$o_zip','$o_phone',
+					'$o_fax')";
 
 				$result_2 = mysqli_query($conn, $q_address);
 			}
@@ -599,6 +601,12 @@
 	{
 		exit;
 	}
+	/**
+	* Trims extra spaces, deletes slashes, translates the string
+	*
+	* @param string
+	* @return string
+	*/
 	function formatted($data)
 		{
 			$data = trim($data);
